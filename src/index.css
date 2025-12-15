@@ -1,5 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #2563eb;
+  --color-secondary: #1d4ed8;
+  --color-info: #38bdf8;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
 
 /* font */
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
@@ -9,3 +19,6 @@ body {
   font-optical-sizing: auto;
 }
 
+body{
+  @apply bg-gray-50
+}

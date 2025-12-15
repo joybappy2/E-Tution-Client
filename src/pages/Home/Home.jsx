@@ -5,6 +5,10 @@ const Home = () => {
     <div>
       <h2>Home</h2>
 
+      <button className="btn btn-success">btn</button>
+      <button className="btn btn-warning">btn</button>
+      <button className="btn btn-error">btn</button>
+
       <h2>Lorem Vaiya</h2>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil autem, natus consectetur soluta ullam minima recusandae eos explicabo quia. Officia dignissimos aut eligendi eum accusamus nulla molestiae ducimus, architecto ut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eius ipsa eos provident illum magnam. Facilis, eius excepturi! Officiis reiciendis dolor iusto asperiores saepe error, recusandae inventore. Culpa cumque minus eaque nesciunt laboriosam vel suscipit quae veritatis, est dolorem debitis autem, dolorum quas id nihil provident ipsum deleniti quam totam rem optio, reprehenderit necessitatibus? Molestiae tenetur laborum ut alias accusamus qui. Vel nobis sit est culpa! Earum quos officiis possimus obcaecati, ab, velit aspernatur dolor sequi optio repellat iure, illum delectus harum. Accusamus quod consectetur distinctio delectus vitae porro ullam neque. Quis tempora nulla repudiandae earum, unde reprehenderit consectetur architecto!</p>
 
