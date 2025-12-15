@@ -1,11 +1,11 @@
 import React from "react";
 import { IoMdMenu } from "react-icons/io";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 
 const Navbar = () => {
-  const user = true;
+  const user = false;
 
   const links = (
     <>
@@ -56,8 +56,8 @@ const Navbar = () => {
         </div>
 
         {/* Logo */}
-        <div className="flex items-center ml-1 md:ml-2 md:scale-110">
-          <Logo className="md:scale-125 md:ml-4" />
+        <div className="flex items-center ml-1 md:ml-2">
+          <Logo className="text-xl md:text-2xl" />
         </div>
       </div>
 
@@ -111,8 +111,13 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex items-center gap-2 sm:gap-4">
-            <Button className="bg-[#5289ff27] btn-sm">Login</Button>
-            <Button className="btn-primary btn-sm">Register</Button>
+            <Link to='/login'>
+              <Button className="bg-[#5289ff27] btn-sm">Login</Button>
+            </Link>
+
+            <Link to='/register'>
+              <Button className="btn-primary btn-sm">Register</Button>
+            </Link>
           </div>
         )}
       </div>
