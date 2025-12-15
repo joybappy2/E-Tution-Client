@@ -36,8 +36,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: (
-      <h2 className="text-7xl font-bold min-h-screen flex justify-center items-center">
+      <h2 className="text-7xl text-center font-bold min-h-screen flex justify-center items-center">
         Error 404
+        <br />
+        Page Not Found
       </h2>
     ),
   },

@@ -1,7 +1,6 @@
 import React from "react";
-import { GiGraduateCap } from "react-icons/gi";
 import { IoMdMenu } from "react-icons/io";
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 
@@ -11,16 +10,16 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink>Home</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink>Tutions</NavLink>
+        <NavLink to="/tutions">Tutions</NavLink>
       </li>
       <li>
-        <NavLink>Tutors</NavLink>
+        <NavLink to="/tutors">Tutors</NavLink>
       </li>
       <li>
-        <NavLink>About</NavLink>
+        <NavLink to="/about">About</NavLink>
       </li>
     </>
   );
@@ -48,7 +47,7 @@ const Navbar = () => {
             ></label>
 
             <ul
-              className=" font-medium menu bg-base-100 min-h-screen w-64 sm:w-72 p-4 gap-1
+              className="menu bg-base-100 min-h-screen w-64 sm:w-72 p-4 gap-1
             [&_a:active]:bg-primary [&_a:active]:text-white"
             >
               {links}
@@ -58,13 +57,13 @@ const Navbar = () => {
 
         {/* Logo */}
         <div className="flex items-center ml-1 md:ml-2 md:scale-110">
-          <Logo />
+          <Logo className="md:scale-125 md:ml-4" />
         </div>
       </div>
 
       <div className="navbar-center hidden lg:flex items-center">
         <ul
-          className="font-medium menu menu-horizontal gap-1
+          className="menu menu-horizontal gap-1
         [&_a:active]:bg-primary [&_a:active]:text-white"
         >
           {links}
@@ -89,7 +88,15 @@ const Navbar = () => {
 
             <ul
               tabIndex={-1}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-20 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content
+              bg-base-100
+              rounded-box
+              z-50 mt-3 w-52 p-2
+              shadow-sm
+              [&_a:active]:bg-primary 
+              [&_a:active]:text-white
+              top-7
+              "
             >
               <li>
                 <a>Profile</a>
@@ -104,8 +111,8 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex items-center gap-2 sm:gap-4">
-            <Button className="bg-[#5289ff27]">Login</Button>
-            <Button>Register</Button>
+            <Button className="bg-[#5289ff27] btn-sm">Login</Button>
+            <Button className="btn-primary btn-sm">Register</Button>
           </div>
         )}
       </div>
