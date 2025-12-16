@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, loadingUser } = useAuth();
 
   const links = (
     <>
@@ -24,6 +24,8 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  console.log(user);
 
   return (
     <div className="navbar sticky top-0 z-20 bg-base-100 shadow-sm px-3 sm:px-4 lg:px-6">
@@ -83,10 +85,7 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar hover:ring hover:ring-primary/30 transition"
             >
               <div className="w-9 sm:w-10 rounded-full">
-                <img
-                  alt="avatar"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img alt="avatar" src={`${user.photoURL}`} />
               </div>
             </div>
 
@@ -99,7 +98,8 @@ const Navbar = () => {
               shadow-sm
               [&_a:active]:bg-primary 
               [&_a:active]:text-white
-              top-7
+              top-11
+              
               "
             >
               <li>
@@ -114,14 +114,20 @@ const Navbar = () => {
             </ul>
           </div>
         ) : (
-          <div className="flex items-center gap-2 sm:gap-4">
-            <Link to="/login">
-              <Button className="bg-[#5289ff27] btn-sm">Login</Button>
-            </Link>
+          <div>
+            {loadingUser ? (
+              <span className="loading loading-spinner text-primary loading-md"></span>
+            ) : (
+              <div className="flex items-center gap-2 sm:gap-4">
+                <Link to="/login">
+                  <Button className="bg-[#5289ff27] btn-sm">Login</Button>
+                </Link>
 
-            <Link to="/register">
-              <Button className="btn-primary btn-sm">Register</Button>
-            </Link>
+                <Link to="/register">
+                  <Button className="btn-primary btn-sm">Register</Button>
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>
