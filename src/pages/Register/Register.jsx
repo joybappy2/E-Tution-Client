@@ -1,11 +1,14 @@
 import React from "react";
 import Button from "../../components/Button/Button";
-import { PiStudent } from "react-icons/pi";
-import { GiTeacher } from "react-icons/gi";
-import { FaChalkboardTeacher } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import { FaFan } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 const Register = () => {
+  const { registerUser, user, loadingUser } = useAuth();
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -19,7 +22,15 @@ const Register = () => {
     const role = data.role;
     const phone = data.phone;
 
-    
+    registerUser(email, password)
+      .then((res) => {
+        alert("New User Registered Successfully");
+        console.log(res.user);
+        navigate('/')
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
   };
 
   return (
@@ -82,7 +93,13 @@ const Register = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
-            <Button className="btn-primary">Register</Button>
+            <Button className="btn-primary">
+              {loadingUser ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : (
+                <span>Register</span>
+              )}
+            </Button>
           </fieldset>
         </form>
 

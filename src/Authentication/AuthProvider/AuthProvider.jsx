@@ -6,6 +6,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 
@@ -25,7 +26,7 @@ const AuthProvider = ({ children }) => {
   //   REGISTER EP
   const registerUser = (email, password) => {
     setLoadingUser(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //   SIGNIN EP

@@ -3,9 +3,10 @@ import { IoMdMenu } from "react-icons/io";
 import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const user = false;
+  const { user } = useAuth();
 
   const links = (
     <>
@@ -72,7 +73,10 @@ const Navbar = () => {
 
       <div className="navbar-end flex items-center gap-2 sm:gap-4">
         {user ? (
-          <div className="dropdown dropdown-end flex items-center">
+          <div
+            title={user.email}
+            className={`dropdown dropdown-end flex items-center `}
+          >
             <div
               tabIndex={0}
               role="button"
@@ -111,11 +115,11 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex items-center gap-2 sm:gap-4">
-            <Link to='/login'>
+            <Link to="/login">
               <Button className="bg-[#5289ff27] btn-sm">Login</Button>
             </Link>
 
-            <Link to='/register'>
+            <Link to="/register">
               <Button className="btn-primary btn-sm">Register</Button>
             </Link>
           </div>
