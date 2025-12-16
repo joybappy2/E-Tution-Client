@@ -1,38 +1,83 @@
 import React from "react";
 import Button from "../../components/Button/Button";
+import { PiStudent } from "react-icons/pi";
+import { GiTeacher } from "react-icons/gi";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleRegister = (data) => {
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    const role = data.role;
+    const phone = data.phone;
+
+    
+  };
+
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
       <div className="p-10 bg-base-100 rounded-xl w-sm shadow-xl">
-        <form className=" ">
-          <h2 className="text-2xl font-semibold text-center">Register</h2>
+        <form onSubmit={handleSubmit(handleRegister)} className=" ">
+          <h2 className="text-xl md:text-2xl font-semibold text-center">
+            Register
+          </h2>
           <fieldset className="fieldset">
             {/* name */}
             <label className="label">Name</label>
-            <input type="email" className="input w-full" placeholder="Name" />
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="Name"
+              {...register("name")}
+            />
 
             {/* email */}
             <label className="label">Email</label>
-            <input type="email" className="input w-full" placeholder="Email" />
+            <input
+              type="email"
+              className="input w-full"
+              placeholder="Email"
+              {...register("email")}
+            />
 
             {/* role */}
             <label className="label">Role</label>
-            <select defaultValue="select a role" className="select">
-              <option disabled={true}>Select a Role</option>
-              <option value="">Teacher</option>
-              <option value="">Student</option>
+            <select
+              className="select"
+              {...register("role", { required: true })}
+            >
+              <option value="">Select a Role</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
             </select>
+            {errors.role?.type === "required" && (
+              <p className="text-error">Plaease select a role</p>
+            )}
 
             {/* phone */}
             <label className="label">Phone</label>
-            <input type="text" className="input w-full" placeholder="Phone" />
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="Phone"
+              {...register("phone")}
+            />
+
             {/* password */}
             <label className="label">Password</label>
             <input
               type="password"
               className="input w-full"
               placeholder="Password"
+              {...register("password")}
             />
             <div>
               <a className="link link-hover">Forgot password?</a>
@@ -46,7 +91,7 @@ const Register = () => {
         </div>
 
         {/* Google */}
-        <Button className="bg-base-100 border-primary w-full">
+        <Button className=" bg-[#5289ff27] w-full">
           <span>
             <svg
               aria-label="Google logo"
