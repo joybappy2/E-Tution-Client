@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { FaFan } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 const Register = () => {
   const { registerUser, loadingUser, loginWithGoogle } = useAuth();
@@ -24,12 +25,24 @@ const Register = () => {
     const phone = data.phone;
 
     registerUser(email, password)
-      .then((res) => {
-        alert("Registered With Email&Password Successfully");
-        console.log(res.user);
+      .then(() => {
+        const newUser = {
+          name: name,
+          email: email,
+          role: role,
+          phone: phone,
+        };
+        axios.post("http://localhost:3000/users", newUser).then((res) => {
+          if (res.data.insertedId) {
+            alert("User Saved to MongoDB");
+          }
+        });
         navigate("/");
       })
       .catch((err) => {
+        if(err.code === 'auth/email-already-in-use'){
+          alert('User already Exists')
+        }
         console.log(err.code);
       });
   };
@@ -38,9 +51,27 @@ const Register = () => {
   const handleGoogleLogin = () => {
     loginWithGoogle()
       .then((res) => {
-        alert("Registered With Google Successfully");
+        const newUser = {
+          name: res.user.displayName,
+          email: res.user.email,
+          role: "student",
+          phone: "",
+        };
+        axios
+          .post("http://localhost:3000/users", newUser)
+          .then((res) => {
+            if (res.data.insertedId) {
+              alert("User Saved to MongoDB");
+            } else {
+              console.log(res.data);
+            }
+          })
+          .catch((err) => {
+            alert(err.code);
+          });
+
         navigate("/");
-        console.log(res.user);
+        console.log("Login Successful");
       })
       .catch((err) => {
         console.log(err.code);

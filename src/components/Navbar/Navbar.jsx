@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user, loadingUser } = useAuth();
+  const { user, loadingUser, logout } = useAuth();
 
   const links = (
     <>
@@ -25,7 +25,16 @@ const Navbar = () => {
     </>
   );
 
-  console.log(user);
+  // ------HANDLE LOGOUT--------
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        console.log("Logout Successful");
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+  };
 
   return (
     <div className="navbar sticky top-0 z-20 bg-base-100 shadow-sm px-3 sm:px-4 lg:px-6">
@@ -84,7 +93,7 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar hover:ring hover:ring-primary/30 transition"
             >
-              <div className="w-9 sm:w-10 rounded-full">
+              <div className="w-9 sm:w-10 rounded-full hover:scale-105 transition-all duration-200">
                 <img alt="avatar" src={`${user.photoURL}`} />
               </div>
             </div>
@@ -106,9 +115,14 @@ const Navbar = () => {
                 <a>Profile</a>
               </li>
               <li>
-                <a>Settings</a>
+                <a>Dashboard</a>
               </li>
               <li>
+                <a>Settings</a>
+              </li>
+
+              {/* -----REGISTER FORM-------- */}
+              <li onClick={handleLogout}>
                 <a className="text-error">Logout</a>
               </li>
             </ul>
