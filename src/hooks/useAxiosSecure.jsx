@@ -7,19 +7,21 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user } = useAuth();
+  const { user, loadingUser } = useAuth();
 
   useEffect(() => {
-    const myInterceptor = axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${user?.accessToken}`;
+    if (!loadingUser && user?.accessToken) {
+      const myInterceptor = axiosSecure.interceptors.request.use((config) => {
+        config.headers.Authorization = `Bearer ${user?.accessToken}`;
 
-      return config;
-    });
+        return config;
+      });
 
-    return () => {
-      axiosSecure.interceptors.request.eject(myInterceptor);
-    };
-  }, [user?.accessToken]);
+      return () => {
+        axiosSecure.interceptors.request.eject(myInterceptor);
+      };
+    }
+  }, [user?.accessToken, loadingUser]);
 
   return axiosSecure;
 };

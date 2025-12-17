@@ -43,9 +43,13 @@ const AuthProvider = ({ children }) => {
 
   //   LOGOUT
   const logout = () => {
-    setLoadingUser(true)
+    setLoadingUser(true);
     return signOut(auth);
   };
+
+  if (loadingUser) {
+    return;
+  }
 
   const authInfo = {
     registerUser,
