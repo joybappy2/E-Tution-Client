@@ -1,14 +1,13 @@
-import React from "react";
 import Button from "../../components/Button/Button";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import { FaFan } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
   const { registerUser, loadingUser, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -32,7 +31,7 @@ const Register = () => {
           role: role,
           phone: phone,
         };
-        axios.post("http://localhost:3000/users", newUser).then((res) => {
+        axiosSecure.post("/users", newUser).then((res) => {
           if (res.data.insertedId) {
             alert("User Saved to MongoDB");
           }
@@ -40,8 +39,8 @@ const Register = () => {
         navigate("/");
       })
       .catch((err) => {
-        if(err.code === 'auth/email-already-in-use'){
-          alert('User already Exists')
+        if (err.code === "auth/email-already-in-use") {
+          alert("User already Exists");
         }
         console.log(err.code);
       });
@@ -57,8 +56,8 @@ const Register = () => {
           role: "student",
           phone: "",
         };
-        axios
-          .post("http://localhost:3000/users", newUser)
+        axiosSecure
+          .post("/users", newUser)
           .then((res) => {
             if (res.data.insertedId) {
               alert("User Saved to MongoDB");
