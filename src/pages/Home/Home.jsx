@@ -1,81 +1,114 @@
+import { Link } from "react-router";
+import heroPng from "../../assets/Kids Studying from Home-bro.png";
+import Button from "../../components/Button/Button";
+
 const Home = () => {
+  const tutions = [1, 2, 3, 4, 5, 6];
+  const tutors = [1, 2, 3, 4, 5, 6];
+
   return (
     <div>
-      <h2>Home</h2>
+      {/* ------ Hero Section ------ */}
+      <section className="grid md:grid-cols-2 gap-10 items-center">
+        {/* Text */}
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            Manage Tuition <br />
+            Activities Online
+          </h1>
 
-      <button className="btn btn-success">btn</button>
-      <button className="btn btn-warning">btn</button>
-      <button className="btn btn-error">btn</button>
+          <p className="mt-4 text-sm text-gray-500 max-w-xs">
+            A simple platform to manage tuition activities. Tution Post, Apply
+            Tution, Online Payment.
+          </p>
 
-      <h2>Lorem Vaiya</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil autem,
-        natus consectetur soluta ullam minima recusandae eos explicabo quia.
-        Officia dignissimos aut eligendi eum accusamus nulla molestiae ducimus,
-        architecto ut? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Molestiae eius ipsa eos provident illum magnam. Facilis, eius excepturi!
-        Officiis reiciendis dolor iusto asperiores saepe error, recusandae
-        inventore. Culpa cumque minus eaque nesciunt laboriosam vel suscipit
-        quae veritatis, est dolorem debitis autem, dolorum quas id nihil
-        provident ipsum deleniti quam totam rem optio, reprehenderit
-        necessitatibus? Molestiae tenetur laborum ut alias accusamus qui. Vel
-        nobis sit est culpa! Earum quos officiis possimus obcaecati, ab, velit
-        aspernatur dolor sequi optio repellat iure, illum delectus harum.
-        Accusamus quod consectetur distinctio delectus vitae porro ullam neque.
-        Quis tempora nulla repudiandae earum, unde reprehenderit consectetur
-        architecto!
-      </p>
+          <div className="mt-6 flex flex-col md:flex-row gap-4">
+            <Link>
+              <Button className="btn-primary w-full md:w-auto">
+                Get Started
+              </Button>
+            </Link>
 
-      <br />
+            <Link>
+              <Button className="bg-[#5289ff27] w-full md:w-auto">
+                Learn More
+              </Button>
+            </Link>
+          </div>
+        </div>
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus enim
-        cumque ex blanditiis ducimus obcaecati sit molestiae repellendus.
-        Inventore possimus et praesentium amet dolor ad. Corrupti iusto
-        reprehenderit officiis error eveniet explicabo dolore sint? Iste
-        deleniti, commodi, libero aliquid repudiandae quibusdam numquam
-        repellendus velit eaque aperiam dignissimos amet officiis fugit tenetur
-        itaque, quod eos voluptatibus veniam alias mollitia eum neque impedit
-        nulla. Libero inventore dolore at porro molestias et similique ipsum
-        enim dolores! Omnis fugiat optio aliquid at quae delectus, cumque
-        accusamus deleniti excepturi in veritatis quos dolore officiis
-        voluptatum et neque magni repudiandae, sed, quisquam nulla ratione unde
-        est! Id, velit! Odit, alias animi vitae minima a dolores dolorem quis.
-        Enim nihil necessitatibus incidunt sapiente iure laboriosam possimus
-        explicabo ipsum harum debitis nostrum iste, voluptatem doloribus
-        suscipit, eligendi earum in. Consequatur rem, velit mollitia est minima
-        quod dolorem fuga expedita possimus ipsam laborum voluptatem natus eaque
-        unde, reprehenderit inventore temporibus asperiores corrupti nostrum
-        architecto. Doloribus ex ad fuga, illo accusamus ducimus eum iure ullam
-        eligendi aperiam eius consequuntur eos. Culpa ipsum repellendus quae
-        alias sint quia quod ipsam ex nobis, quos esse! Dignissimos fugit,
-        perferendis dolorem inventore eaque reprehenderit hic veniam dolore
-        labore suscipit, vitae consequuntur expedita temporibus tenetur?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus enim
-        cumque ex blanditiis ducimus obcaecati sit molestiae repellendus.
-        Inventore possimus et praesentium amet dolor ad. Corrupti iusto
-        reprehenderit officiis error eveniet explicabo dolore sint? Iste
-        deleniti, commodi, libero aliquid repudiandae quibusdam numquam
-        repellendus velit eaque aperiam dignissimos amet officiis fugit tenetur
-        itaque, quod eos voluptatibus veniam alias mollitia eum neque impedit
-        nulla. Libero inventore dolore at porro molestias et similique ipsum
-        enim dolores! Omnis fugiat optio aliquid at quae delectus, cumque
-        accusamus deleniti excepturi in veritatis quos dolore officiis
-        voluptatum et neque magni repudiandae, sed, quisquam nulla ratione unde
-        est! Id, velit! Odit, alias animi vitae minima a dolores dolorem quis.
-        Enim nihil necessitatibus incidunt sapiente iure laboriosam possimus
-        explicabo ipsum harum debitis nostrum iste, voluptatem doloribus
-        suscipit, eligendi earum in. Consequatur rem, velit mollitia est minima
-        quod dolorem fuga expedita possimus ipsam laborum voluptatem natus eaque
-        unde, reprehenderit inventore temporibus asperiores corrupti nostrum
-        architecto. Doloribus ex ad fuga, illo accusamus ducimus eum iure ullam
-        eligendi aperiam eius consequuntur eos. Culpa ipsum repellendus quae
-        alias sint quia quod ipsam ex nobis, quos esse! Dignissimos fugit,
-        perferendis dolorem inventore eaque reprehenderit hic veniam dolore
-        labore suscipit, vitae consequuntur expedita temporibus tenetur?
-      </p>
+        {/* Image */}
+        <div className="flex justify-center">
+          <img src={heroPng} className="w-full max-w-xs md:max-w-md" />
+        </div>
+      </section>
+
+      {/* ------ Latest Tutions ------ */}
+      <section className="py-12 px-3 sm:px-4 lg:px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left">
+            Latest Tuition Posts
+          </h2>
+
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tutions.map((tution) => (
+              // ----- Tutor Card --------
+              <div
+                key={tution}
+                className="card bg-base-100 shadow-sm hover:shadow-md transition"
+              >
+                <div className="card-body">
+                  <h3 className="font-semibold text-lg">Math Tutor Needed</h3>
+
+                  <p className="text-sm text-gray-500">Class 10 · Dhaka</p>
+
+                  <p className="mt-2 font-medium">Budget: 5000 BDT</p>
+
+                  <Link className="mt-4 text-primary font-medium">
+                    View Details →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------ Latest Tutors ------ */}
+      <section className="py-12 px-3 sm:px-4 lg:px-6 bg-base-200/40">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left">
+            Latest Tutors
+          </h2>
+
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tutors.map((tutor) => (
+              // ----- Tutor Card --------
+              <div
+                key={tutor}
+                className="card bg-base-100 shadow-sm text-center"
+              >
+                <div className="card-body items-center">
+                  <img
+                    className="w-16 h-16 rounded-full object-cover border-primary border-2"
+                    src="https://media.licdn.com/dms/image/v2/D5622AQG4_HnKT3rPQA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1694365088038?e=2147483647&v=beta&t=5SkECKf5obX3_R16Wp9iNVxCDl8bQJ7Kr3kR-WXdeEQ"
+                  />
+
+                  <h3 className="font-semibold mt-2">John Doe</h3>
+
+                  <p className="text-sm text-gray-500">
+                    Math · 5 Years Experience
+                  </p>
+
+                  <Link className="mt-4 btn btn-outline btn-sm">
+                    View Profile →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

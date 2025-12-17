@@ -71,7 +71,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <div className="flex items-center ml-1 md:ml-2">
-          <Logo className="text-xl md:text-2xl" />
+          <Logo className="text-2xl md:text-3xl w-fit" />
         </div>
       </div>
 
@@ -139,11 +139,15 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center gap-2 sm:gap-4">
                 <Link to="/login">
-                  <Button className="bg-[#5289ff27] btn-sm">Login</Button>
+                  <Button className="bg-[#5289ff27] btn-sm md:btn-md">
+                    Login
+                  </Button>
                 </Link>
 
                 <Link to="/register">
-                  <Button className="btn-primary btn-sm">Register</Button>
+                  <Button className="btn-primary btn-sm md:btn-md">
+                    Register
+                  </Button>
                 </Link>
               </div>
             )}
