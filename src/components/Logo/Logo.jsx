@@ -12,7 +12,7 @@ const Logo = ({ className = "", iconSize=0, ...props }) => {
           ${className}`}
       >
         <span>TutionBD</span>
-        <GiGraduateCap color="#2563eb" size={iconSize}></GiGraduateCap>
+        <GiGraduateCap color="#188bfe" size={iconSize}></GiGraduateCap>
       </div>
     </Link>
   );
