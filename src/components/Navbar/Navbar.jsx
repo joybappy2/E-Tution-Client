@@ -110,16 +110,17 @@ const Navbar = () => {
               [&_a:active]:bg-primary 
               [&_a:active]:text-white
               top-11
-              
               "
             >
+              <li className="">
+                <p className="">{user?.email}</p>
+              </li>
+
               <li>
                 <a>Profile</a>
               </li>
               <li>
-                <NavLink to={`/dashboard/${role && role?.role}`}>
-                  Dashboard
-                </NavLink>
+                <NavLink to={`/dashboard/${role && role}`}>Dashboard</NavLink>
               </li>
               <li>
                 <a>Settings</a>

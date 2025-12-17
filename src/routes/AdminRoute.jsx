@@ -4,8 +4,12 @@ const AdminRoute = ({ children }) => {
   const role = useRole();
   console.log(role);
 
+  if (!role) {
+    return null;
+  }
+
   if (role !== "admin") {
-    return <p>Forbidden Access</p>;
+    return <p>Forbidden Access Only For Admin</p>;
   }
 
   return children;

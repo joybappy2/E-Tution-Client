@@ -5,8 +5,12 @@ const StudentRoute = ({ children }) => {
   const role = useRole();
   console.log(role);
 
-  if(role !== 'student') {
-    return <p>Forbidden Access</p>
+  if (!role) {
+    return null;
+  }
+
+  if (role !== "student") {
+    return <p>Forbidden Access Only For Student</p>;
   }
 
   return children;

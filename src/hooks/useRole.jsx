@@ -18,7 +18,7 @@ const useRole = () => {
     return null;
   }
 
-  return role;
+  return role.role;
 };
 
 export default useRole;
