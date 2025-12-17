@@ -9,6 +9,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
+import Loading from "../../components/Loading/Loading";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -47,9 +48,9 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // if (loadingUser) {
-  //   return;
-  // }
+  if (loadingUser) {
+    return <Loading></Loading>;
+  }
 
   const authInfo = {
     registerUser,

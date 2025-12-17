@@ -140,7 +140,7 @@ const Register = () => {
             </div>
             <Button className="btn-primary">
               {loadingUser ? (
-                <span className="loading loading-spinner loading-sm"></span>
+                <span className="loading loading-infinity loading-xl"></span>
               ) : (
                 <span>Register</span>
               )}

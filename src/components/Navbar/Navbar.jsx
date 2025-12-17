@@ -4,9 +4,11 @@ import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
   const { user, loadingUser, logout } = useAuth();
+  const role = useRole();
 
   const links = (
     <>
@@ -115,7 +117,9 @@ const Navbar = () => {
                 <a>Profile</a>
               </li>
               <li>
-                <a>Dashboard</a>
+                <NavLink to={`/dashboard/${role && role?.role}`}>
+                  Dashboard
+                </NavLink>
               </li>
               <li>
                 <a>Settings</a>
@@ -130,7 +134,7 @@ const Navbar = () => {
         ) : (
           <div>
             {loadingUser ? (
-              <span className="loading loading-spinner text-primary loading-md"></span>
+              <span className="loading loading-infinity text-primary loading-xl"></span>
             ) : (
               <div className="flex items-center gap-2 sm:gap-4">
                 <Link to="/login">

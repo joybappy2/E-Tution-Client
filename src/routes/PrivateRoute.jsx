@@ -1,3 +1,4 @@
+import Loading from "../components/Loading/Loading";
 import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router";
 
@@ -5,11 +6,7 @@ const PrivateRoute = ({ children }) => {
   const { user, loadingUser } = useAuth();
 
   if (loadingUser) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner text-primary loading-xl"></span>
-      </div>
-    );
+    return <Loading></Loading>;
   }
 
   if (!user) {

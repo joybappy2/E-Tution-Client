@@ -1,9 +1,4 @@
-import useRole from "../../hooks/useRole";
-
 const Home = () => {
-  const role = useRole();
-  console.log(role);
-
   return (
     <div>
       <h2>Home</h2>
