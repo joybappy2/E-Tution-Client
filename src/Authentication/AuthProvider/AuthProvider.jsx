@@ -47,9 +47,9 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  if (loadingUser) {
-    return;
-  }
+  // if (loadingUser) {
+  //   return;
+  // }
 
   const authInfo = {
     registerUser,

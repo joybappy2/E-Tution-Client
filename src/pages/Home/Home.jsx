@@ -1,14 +1,8 @@
-import { useEffect } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useRole from "../../hooks/useRole";
 
 const Home = () => {
-  const axiosSecure = useAxiosSecure();
-
-  useEffect(() => {
-    axiosSecure.get("/users").then((res) => {
-      console.log(res.data);
-    });
-  }, [axiosSecure]);
+  const role = useRole();
+  console.log(role);
 
   return (
     <div>
