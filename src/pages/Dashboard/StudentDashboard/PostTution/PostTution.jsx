@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../../../hooks/useAuth";
 
 const PostTution = () => {
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const {
     register,
@@ -19,6 +21,7 @@ const PostTution = () => {
       class: data.class,
       location: data.location,
       budget: parseInt(data.budget),
+      email: user?.email,
     };
 
     axiosSecure.post("/post-Tution", newPost).then((res) => {
@@ -26,7 +29,7 @@ const PostTution = () => {
         Swal.fire({
           title: "New tution posted. Wait for admin approval.",
           icon: "success",
-          confirmButtonColor: '#188bfe'
+          confirmButtonColor: "#188bfe",
         });
       }
     });

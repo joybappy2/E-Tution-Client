@@ -14,6 +14,7 @@ import StudentDashboard from "../pages/Dashboard/StudentDashboard/StudentDashboa
 import TeacherDashboard from "../pages/Dashboard/TeacherDashboard/TeacherDashboard";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 import PostTution from "../pages/Dashboard/StudentDashboard/PostTution/PostTution";
+import MyTutions from "../pages/Dashboard/StudentDashboard/MyTutions/MyTutions";
 
 const router = createBrowserRouter([
   {
@@ -93,7 +94,7 @@ const router = createBrowserRouter([
 
           {
             path: "my-tutions",
-            element: <p>My Tutions</p>,
+            element: <MyTutions></MyTutions>,
           },
           {
             path: "post-tution",
