@@ -44,7 +44,7 @@ const Home = () => {
       </section>
 
       {/* ------ Latest Tutions ------ */}
-      <section className="py-12 px-3 sm:px-4 lg:px-6">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left">
             Latest Tuition Posts
@@ -75,7 +75,7 @@ const Home = () => {
       </section>
 
       {/* ------ Latest Tutors ------ */}
-      <section className="py-12 px-3 sm:px-4 lg:px-6 bg-base-200/40">
+      <section className="py-12 bg-base-200/40">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left">
             Latest Tutors
@@ -111,7 +111,7 @@ const Home = () => {
       </section>
 
       {/* ------ How System Works ------ */}
-      <section className="py-14 px-3 sm:px-4 lg:px-6">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold">
             How the System Works
@@ -143,7 +143,7 @@ const Home = () => {
       </section>
 
       {/* ------ Why Choose Us ------ */}
-      <section className="py-12 px-3 sm:px-4 lg:px-6 bg-base-200/40">
+      <section className="py-12 bg-base-200/40">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center">
             Why Choose Us

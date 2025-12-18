@@ -10,6 +10,9 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import StudentRoute from "./StudentRoute";
 import TeacherRoute from "./TeacherRoute";
 import AdminRoute from "./AdminRoute";
+import StudentDashboard from "../pages/Dashboard/StudentDashboard/StudentDashboard";
+import TeacherDashboard from "../pages/Dashboard/TeacherDashboard/TeacherDashboard";
+import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -48,15 +51,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
-        element: <DashboardHome></DashboardHome>,
-      },
-
-      {
         path: "admin",
         element: (
           <AdminRoute>
-            <p>Dashboard Of Admin</p>
+            <AdminDashboard></AdminDashboard>
           </AdminRoute>
         ),
       },
@@ -65,7 +63,7 @@ const router = createBrowserRouter([
         path: "teacher",
         element: (
           <TeacherRoute>
-            <p>Dashboard Of Teachers</p>
+            <TeacherDashboard></TeacherDashboard>
           </TeacherRoute>
         ),
       },
@@ -74,9 +72,54 @@ const router = createBrowserRouter([
         path: "student",
         element: (
           <StudentRoute>
-            <p>Dashboard Of Students</p>
+            <StudentDashboard></StudentDashboard>,
           </StudentRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: (
+              <p>
+                <span className="text-2xl md:text-3xl font-semibold">
+                  Student Dashboard Home{" "}
+                </span>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                voluptas ullam, voluptate commodi, est placeat eveniet possimus
+                earum aut esse totam voluptates facere, culpa vitae doloremque
+                porro excepturi autem soluta ipsum illum accusamus mollitia
+                alias eligendi quo. Consequatur soluta dolorem recusandae
+                quibusdam porro, accusantium harum nihil ipsum at quidem alias
+                qui officia optio minima iusto mollitia amet? Placeat dolorum
+                beatae esse explicabo, id molestiae obcaecati magnam illo
+                nesciunt dolor odit ad quisquam quasi optio exercitationem amet
+                maiores nam voluptas facilis perspiciatis qui quidem delectus
+                iure? Illo deleniti error, quidem, cum necessitatibus mollitia
+                maiores distinctio suscipit modi veritatis sequi pariatur unde.
+              </p>
+            ),
+          },
+
+          {
+            path: "my-tutions",
+            element: <p>My Tutions</p>,
+          },
+          {
+            path: "post-tution",
+            element: <p>post-tution</p>,
+          },
+          {
+            path: "applied-tutors",
+            element: <p>Applied Tutors</p>,
+          },
+          {
+            path: "payments",
+            element: <p>Payments</p>,
+          },
+          {
+            path: "settings",
+            element: <p>Profile Settings</p>,
+          },
+        ],
       },
     ],
   },
