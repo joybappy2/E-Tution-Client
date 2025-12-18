@@ -1,7 +1,37 @@
-import React from "react";
-import Button from "../../../../components/Button/Button";
+import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const PostTution = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  //---------- Handle Post Tution -----------
+  const handPostTution = (data) => {
+    console.table(data);
+    const newPost = {
+      subject: data.subject,
+      class: data.class,
+      location: data.location,
+      budget: parseInt(data.budget),
+    };
+
+    axiosSecure.post("/post-Tution", newPost).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "New tution posted. Wait for admin approval.",
+          icon: "success",
+          confirmButtonColor: '#188bfe'
+        });
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen py-10 px-3 sm:px-6">
       <div className="max-w-3xl mx-auto">
@@ -26,7 +56,11 @@ const PostTution = () => {
                 placeholder="Math"
                 className="input input-bordered w-full"
                 required
+                {...register("subject", { required: true })}
               />
+              {errors.subject?.type === "required" && (
+                <p className="text-error text-xs">Subject is required</p>
+              )}
             </div>
 
             {/* Class */}
@@ -39,7 +73,11 @@ const PostTution = () => {
                 placeholder="Class 10"
                 className="input input-bordered w-full"
                 required
+                {...register("class", { required: true })}
               />
+              {errors.class?.type === "required" && (
+                <p className="text-error text-xs">Class is required</p>
+              )}
             </div>
 
             {/* Location */}
@@ -52,7 +90,11 @@ const PostTution = () => {
                 placeholder="Dhaka, Mirpur"
                 className="input input-bordered w-full"
                 required
+                {...register("location", { required: true })}
               />
+              {errors?.location?.type === "required" && (
+                <p className="text-error text-xs">Location is required</p>
+              )}
             </div>
 
             {/* Budget */}
@@ -65,13 +107,21 @@ const PostTution = () => {
                 placeholder="5000"
                 className="input input-bordered w-full"
                 required
+                {...register("budget", { required: true })}
               />
+              {errors?.budget?.type === "required" && (
+                <p className="text-error text-xs">Budget is required</p>
+              )}
             </div>
 
             {/* Submit */}
             <div className="sm:col-span-2 pt-4">
-              <button className="w-full">
-                <Button className="btn-primary w-full">Post Tution</Button>
+              <button
+                onClick={handleSubmit(handPostTution)}
+                type="submit"
+                className="btn w-full btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
+              >
+                Post Tution
               </button>
             </div>
           </form>
