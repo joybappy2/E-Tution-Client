@@ -1,5 +1,3 @@
-import React from "react";
-
 const Button = ({ children, className = "", ...props }) => {
   return (
     <button
@@ -8,8 +6,7 @@ const Button = ({ children, className = "", ...props }) => {
           btn
           hover:brightness-110
           hover:shadow-lg
-          hover:scale-105
-          active:scale-90
+          active:scale-95
           transition-all duration-200
           ${className}
         `}

@@ -3,7 +3,7 @@ import Logo from "../Logo/Logo";
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-100 text-base-content p-10">
+    <footer className="footer sm:footer-horizontal bg-secondary text-base-content p-10">
       <nav>
         <h6 className="footer-title">Services</h6>
         <a className="link link-hover">Branding</a>
@@ -36,7 +36,7 @@ const Footer = () => {
             />
             <button className="btn btn-primary join-item">Subscribe</button>
           </div>
-          <Logo />
+          <Logo className="text-2xl md:text-3xl mt-4" />
         </fieldset>
       </form>
     </footer>

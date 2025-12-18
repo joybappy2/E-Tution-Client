@@ -1,6 +1,12 @@
 import { NavLink, Outlet } from "react-router";
 import Button from "../../../components/Button/Button";
 import { MdDashboard } from "react-icons/md";
+import { MdPayments, MdSettings } from "react-icons/md";
+import {
+  FaBookOpen,
+  FaChalkboardTeacher,
+  FaClipboardList,
+} from "react-icons/fa";
 
 const StudentDashboard = () => {
   return (
@@ -29,91 +35,85 @@ const StudentDashboard = () => {
           <h3 className="font-semibold mb-4">Menu</h3>
 
           <ul className="flex flex-col gap-2">
-            {/* ------ Link 1 ----- */}
+            {/* Dashboard */}
             <NavLink to="/dashboard/student" end>
               {({ isActive }) => (
                 <Button
-                  className={`
-        w-full justify-start gap-2
-        ${isActive ? "btn-primary text-white" : "bg-secondary"}
-      `}
+                  className={`w-full justify-start gap-2 ${
+                    isActive ? "btn-primary text-white" : "bg-secondary"
+                  }`}
                 >
-                  <MdDashboard></MdDashboard>
+                  <MdDashboard size={18} />
                   Dashboard
                 </Button>
               )}
             </NavLink>
 
-            {/* ------ Link 2 ----- */}
-            <NavLink to="/dashboard/student/my-tutions" end>
+            {/* My Tuitions */}
+            <NavLink to="/dashboard/student/my-tutions">
               {({ isActive }) => (
                 <Button
-                  className={`
-        w-full justify-start gap-2
-        ${isActive ? "btn-primary text-white" : "bg-secondary"}
-      `}
+                  className={`w-full justify-start gap-2 ${
+                    isActive ? "btn-primary text-white" : "bg-secondary"
+                  }`}
                 >
-                  <MdDashboard></MdDashboard>
-                  My Tutions
+                  <FaBookOpen size={16} />
+                  My Tuitions
                 </Button>
               )}
             </NavLink>
 
-            {/* ------ Link 3 ----- */}
-            <NavLink to="/dashboard/student/post-tution" end>
+            {/* Post Tution */}
+            <NavLink to="/dashboard/student/post-tution">
               {({ isActive }) => (
                 <Button
-                  className={`
-        w-full justify-start gap-2
-        ${isActive ? "btn-primary text-white" : "bg-secondary"}
-      `}
+                  className={`w-full justify-start gap-2 ${
+                    isActive ? "btn-primary text-white" : "bg-secondary"
+                  }`}
                 >
-                  <MdDashboard></MdDashboard>
+                  <FaChalkboardTeacher size={16} />
                   Post Tution
                 </Button>
               )}
             </NavLink>
 
-            {/* ------ Link 4 ----- */}
-            <NavLink to="/dashboard/student/applied-tutors" end>
+            {/* Applied Tutors */}
+            <NavLink to="/dashboard/student/applied-tutors">
               {({ isActive }) => (
                 <Button
-                  className={`
-        w-full justify-start gap-2
-        ${isActive ? "btn-primary text-white" : "bg-secondary"}
-      `}
+                  className={`w-full justify-start gap-2 ${
+                    isActive ? "btn-primary text-white" : "bg-secondary"
+                  }`}
                 >
-                  <MdDashboard></MdDashboard>
+                  <FaClipboardList size={16} />
                   Applied Tutors
                 </Button>
               )}
             </NavLink>
 
-            {/* ------ Link 5 ----- */}
-            <NavLink to="/dashboard/student/payments" end>
+            {/* Payments */}
+            <NavLink to="/dashboard/student/payments">
               {({ isActive }) => (
                 <Button
-                  className={`
-        w-full justify-start gap-2
-        ${isActive ? "btn-primary text-white" : "bg-secondary"}
-      `}
+                  className={`w-full justify-start gap-2 ${
+                    isActive ? "btn-primary text-white" : "bg-secondary"
+                  }`}
                 >
-                  <MdDashboard></MdDashboard>
+                  <MdPayments size={18} />
                   Payments
                 </Button>
               )}
             </NavLink>
 
-            {/* ------ Link 6 ----- */}
-            <NavLink to="/dashboard/student/settings" end>
+            {/* Profile Settings */}
+            <NavLink to="/dashboard/student/settings">
               {({ isActive }) => (
                 <Button
-                  className={`
-        w-full justify-start gap-2
-        ${isActive ? "btn-primary text-white" : "bg-secondary"}
-      `}
+                  className={`w-full justify-start gap-2 ${
+                    isActive ? "btn-primary text-white" : "bg-secondary"
+                  }`}
                 >
-                  <MdDashboard></MdDashboard>
+                  <MdSettings size={18} />
                   Profile Settings
                 </Button>
               )}

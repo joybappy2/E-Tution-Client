@@ -117,7 +117,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <a>Profile</a>
+                <a>Profile <span className="text-gray-500">({role})</span></a>
               </li>
               <li>
                 <NavLink to={`/dashboard/${role && role}`}>Dashboard</NavLink>

@@ -13,6 +13,7 @@ import AdminRoute from "./AdminRoute";
 import StudentDashboard from "../pages/Dashboard/StudentDashboard/StudentDashboard";
 import TeacherDashboard from "../pages/Dashboard/TeacherDashboard/TeacherDashboard";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
+import PostTution from "../pages/Dashboard/StudentDashboard/PostTution/PostTution";
 
 const router = createBrowserRouter([
   {
@@ -85,16 +86,7 @@ const router = createBrowserRouter([
                 </span>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
                 voluptas ullam, voluptate commodi, est placeat eveniet possimus
-                earum aut esse totam voluptates facere, culpa vitae doloremque
-                porro excepturi autem soluta ipsum illum accusamus mollitia
-                alias eligendi quo. Consequatur soluta dolorem recusandae
-                quibusdam porro, accusantium harum nihil ipsum at quidem alias
-                qui officia optio minima iusto mollitia amet? Placeat dolorum
-                beatae esse explicabo, id molestiae obcaecati magnam illo
-                nesciunt dolor odit ad quisquam quasi optio exercitationem amet
-                maiores nam voluptas facilis perspiciatis qui quidem delectus
-                iure? Illo deleniti error, quidem, cum necessitatibus mollitia
-                maiores distinctio suscipit modi veritatis sequi pariatur unde.
+            
               </p>
             ),
           },
@@ -105,7 +97,7 @@ const router = createBrowserRouter([
           },
           {
             path: "post-tution",
-            element: <p>post-tution</p>,
+            element: <PostTution></PostTution>,
           },
           {
             path: "applied-tutors",
