@@ -109,6 +109,58 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* ------ How System Works ------ */}
+      <section className="py-14 px-3 sm:px-4 lg:px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            How the System Works
+          </h2>
+
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              "Post Tuition",
+              "Tutors Apply",
+              "Admin Reviews",
+              "Start Learning",
+            ].map((step, idx) => (
+              <div key={idx} className="flex flex-col items-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-bold text-lg">
+                    {idx + 1}
+                  </span>
+                </div>
+
+                <h3 className="font-semibold">{step}</h3>
+
+                <p className="text-sm text-gray-500">
+                  Short explanation goes here.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------ Why Choose Us ------ */}
+      <section className="py-12 px-3 sm:px-4 lg:px-6 bg-base-200/40">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center">
+            Why Choose Us
+          </h2>
+
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="card bg-base-100 shadow-sm">
+              <div className="card-body">
+                <h3 className="font-semibold">Verified Tutors</h3>
+                <p className="text-sm text-gray-500">
+                  All tutors are verified by admin.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
