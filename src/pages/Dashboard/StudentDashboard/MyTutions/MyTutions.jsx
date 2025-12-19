@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyTutions = () => {
   const axiosSecure = useAxiosSecure();
@@ -131,9 +132,11 @@ const MyTutions = () => {
 
                 {/* Buttons */}
                 <div className="flex flex-wrap gap-2 mt-auto pt-4">
-                  <button className="btn btn-primary btn-sm hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200">
-                    View
-                  </button>
+                  <Link to={`/tution-details/${tution?._id}`}>
+                    <button className="btn btn-primary btn-sm hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200">
+                      View
+                    </button>
+                  </Link>
 
                   <button
                     onClick={() => handleEditTution(tution)}
