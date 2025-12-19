@@ -10,9 +10,15 @@ const MyTutions = () => {
   const { user } = useAuth();
   const modalRef = useRef(null);
   const [clickedCurrentTution, setClickedCurrentTution] = useState("");
-  const { register, handleSubmit, } = useForm();
+  // const [deleteId, setDeleteId] = useState("");
+  const { register, handleSubmit } = useForm();
 
-  const { data: myTutions = [], isLoading, refetch } = useQuery({
+  // ------ loading my tution posts --------
+  const {
+    data: myTutions = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["my-tutions", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/my-tutions/${user?.email}`);
@@ -20,11 +26,13 @@ const MyTutions = () => {
     },
   });
 
+  // ----- Open modal & set clicked tution in state --------
   const handleEditTution = (clickedTution) => {
     setClickedCurrentTution(clickedTution);
     modalRef.current.showModal();
   };
 
+  // ----- Update Tution Function
   const handleSaveChanges = (data) => {
     data.budget = parseInt(data.budget);
     const id = clickedCurrentTution._id;
@@ -32,12 +40,43 @@ const MyTutions = () => {
 
     axiosSecure.patch(`/update/tution/${id}`, updatedPost).then((res) => {
       if (res.data?.modifiedCount) {
-        refetch()
+        refetch();
         modalRef.current.close();
         Swal.fire({
           title: "Tution Info Updated.",
           icon: "success",
           confirmButtonColor: "#188bfe",
+        });
+      }
+    });
+  };
+
+  // ----- Delete Tution Post --------
+  const handleDeleteTution = (deleteId) => {
+    // console.log(deleteId);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#188bfe",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`delete/${deleteId}`).then((res) => {
+          console.log(res.data);
+
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your tution post has been deleted.",
+              icon: "success",
+              confirmButtonColor: "#188bfe",
+            });
+          }
         });
       }
     });
@@ -103,7 +142,10 @@ const MyTutions = () => {
                     Edit
                   </button>
 
-                  <button className="btn btn-sm hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200 text-error bg-transparent">
+                  <button
+                    onClick={() => handleDeleteTution(tution?._id)}
+                    className="btn btn-sm hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200 text-error bg-transparent"
+                  >
                     Delete
                   </button>
                 </div>
