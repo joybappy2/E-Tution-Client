@@ -9,9 +9,10 @@ const MyTutions = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const modalRef = useRef(null);
-  const [tutionId, setTutionId] = useState("");
+  const [clickedCurrentTution, setClickedCurrentTution] = useState("");
+  const { register, handleSubmit, } = useForm();
 
-  const { data: myTutions = [], isLoading } = useQuery({
+  const { data: myTutions = [], isLoading, refetch } = useQuery({
     queryKey: ["my-tutions", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/my-tutions/${user?.email}`);
@@ -19,22 +20,20 @@ const MyTutions = () => {
     },
   });
 
-  const { register, handleSubmit } = useForm();
-
-  const handleEditTution = (tutionIdFromEditBtn) => {
-    setTutionId(tutionIdFromEditBtn);
+  const handleEditTution = (clickedTution) => {
+    setClickedCurrentTution(clickedTution);
     modalRef.current.showModal();
   };
 
   const handleSaveChanges = (data) => {
     data.budget = parseInt(data.budget);
-    const id = tutionId;
+    const id = clickedCurrentTution._id;
     const updatedPost = data;
-    console.log(updatedPost);
 
     axiosSecure.patch(`/update/tution/${id}`, updatedPost).then((res) => {
-      console.log(res.data);
       if (res.data?.modifiedCount) {
+        refetch()
+        modalRef.current.close();
         Swal.fire({
           title: "Tution Info Updated.",
           icon: "success",
@@ -98,7 +97,7 @@ const MyTutions = () => {
                   </button>
 
                   <button
-                    onClick={() => handleEditTution(tution?._id)}
+                    onClick={() => handleEditTution(tution)}
                     className="btn btn-secondary text-black btn-sm hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
                   >
                     Edit
@@ -108,111 +107,108 @@ const MyTutions = () => {
                     Delete
                   </button>
                 </div>
-
-                {/* ------- Update Tution Modal ---------- */}
-                <dialog
-                  ref={modalRef}
-                  className="modal modal-bottom sm:modal-middle"
-                >
-                  <div className="modal-box">
-                    <div className=" rounded-xl p-6 shadow-sm max-w-md mx-auto bg-secondary">
-                      <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
-                        ✏️ Update Tuition Post
-                      </h2>
-
-                      <form className="space-y-4">
-                        {/* Subject */}
-                        <div>
-                          <label className="block text-gray-500 text-xs mb-1">
-                            Subject
-                          </label>
-                          <input
-                            type="text"
-                            name="subject"
-                            defaultValue={tution?.subject}
-                            className="input input-bordered w-full rounded-lg"
-                            {...register("subject")}
-                          />
-                        </div>
-
-                        {/* Class */}
-                        <div>
-                          <label className="block text-gray-500 text-xs mb-1">
-                            Class
-                          </label>
-                          <input
-                            type="text"
-                            name="class"
-                            defaultValue={`${tution?.class.split(" ")[0]}`}
-                            className="input input-bordered w-full rounded-lg"
-                            {...register("class")}
-                          />
-                        </div>
-
-                        {/* Location */}
-                        <div>
-                          <label className="block text-gray-500 text-xs mb-1">
-                            Location
-                          </label>
-                          <input
-                            type="text"
-                            name="location"
-                            defaultValue={tution?.location}
-                            className="input input-bordered w-full rounded-lg"
-                            {...register("location")}
-                          />
-                        </div>
-
-                        {/* Budget */}
-                        <div>
-                          <label className="block text-gray-500 text-xs mb-1">
-                            Budget
-                          </label>
-                          <input
-                            type="number"
-                            name="budget"
-                            defaultValue={tution?.budget}
-                            className="input input-bordered w-full rounded-lg"
-                            {...register("budget")}
-                          />
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                          <label className="block text-gray-500 text-xs mb-1">
-                            Description
-                          </label>
-                          <textarea
-                            name="description"
-                            defaultValue="Looking for a tutor for weekly classes."
-                            className="textarea textarea-bordered w-full rounded-lg"
-                            rows={3}
-                            {...register("description")}
-                          />
-                        </div>
-
-                        {/* Save Button */}
-                        <button
-                          onClick={handleSubmit(handleSaveChanges)}
-                          className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
-                        >
-                          Save Changes
-                        </button>
-                      </form>
-
-                      {/* ---------  Cancel Btn ------- */}
-                      <button
-                        onClick={() => modalRef.current.close()}
-                        className="mt-4 w-full btn text-error hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                </dialog>
               </div>
             ))
           )}
+
+          {/* ------- Update Tution Modal ---------- */}
+          <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box">
+              <div className=" rounded-xl p-6 shadow-sm max-w-md mx-auto bg-secondary">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
+                  ✏️ Update Tuition Post
+                </h2>
+
+                <form className="space-y-4">
+                  {/* Subject */}
+                  <div>
+                    <label className="block text-gray-500 text-xs mb-1">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      defaultValue={clickedCurrentTution?.subject}
+                      className="input input-bordered w-full rounded-lg"
+                      {...register("subject")}
+                    />
+                  </div>
+
+                  {/* Class */}
+                  <div>
+                    <label className="block text-gray-500 text-xs mb-1">
+                      Class
+                    </label>
+                    <input
+                      type="text"
+                      name="class"
+                      defaultValue={clickedCurrentTution?.class}
+                      className="input input-bordered w-full rounded-lg"
+                      {...register("class")}
+                    />
+                  </div>
+
+                  {/* Location */}
+                  <div>
+                    <label className="block text-gray-500 text-xs mb-1">
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      name="location"
+                      defaultValue={clickedCurrentTution?.location}
+                      className="input input-bordered w-full rounded-lg"
+                      {...register("location")}
+                    />
+                  </div>
+
+                  {/* Budget */}
+                  <div>
+                    <label className="block text-gray-500 text-xs mb-1">
+                      Budget
+                    </label>
+                    <input
+                      type="number"
+                      name="budget"
+                      defaultValue={clickedCurrentTution?.budget}
+                      className="input input-bordered w-full rounded-lg"
+                      {...register("budget")}
+                    />
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="block text-gray-500 text-xs mb-1">
+                      Description
+                    </label>
+                    <textarea
+                      name="description"
+                      defaultValue="Looking for a tutor for weekly classes."
+                      className="textarea textarea-bordered w-full rounded-lg"
+                      rows={3}
+                      {...register("description")}
+                    />
+                  </div>
+
+                  {/* Save Button */}
+                  <button
+                    onClick={handleSubmit(handleSaveChanges)}
+                    className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
+                  >
+                    Save Changes
+                  </button>
+                </form>
+
+                {/* ---------  Cancel Btn ------- */}
+                <button
+                  onClick={() => modalRef.current.close()}
+                  className="mt-4 w-full btn text-error hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
     </div>
