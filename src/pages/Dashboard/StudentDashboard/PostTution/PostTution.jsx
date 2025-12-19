@@ -13,7 +13,7 @@ const PostTution = () => {
     formState: { errors },
   } = useForm();
 
-  //---------- Handle Post Tution -----------
+  //----- Handle Post Tution ------
   const handPostTution = (data) => {
     console.table(data);
     const newPost = {

@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const MyTutions = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const modalRef = useRef(null);
+  const [tutionId, setTutionId] = useState("");
 
   const { data: myTutions = [], isLoading } = useQuery({
     queryKey: ["my-tutions", user?.email],
@@ -16,9 +19,29 @@ const MyTutions = () => {
     },
   });
 
-  const handleUpdateTution = (tuition) => {
+  const { register, handleSubmit } = useForm();
+
+  const handleEditTution = (tutionIdFromEditBtn) => {
+    setTutionId(tutionIdFromEditBtn);
     modalRef.current.showModal();
-    console.log(tuition);
+  };
+
+  const handleSaveChanges = (data) => {
+    data.budget = parseInt(data.budget);
+    const id = tutionId;
+    const updatedPost = data;
+    console.log(updatedPost);
+
+    axiosSecure.patch(`/update/tution/${id}`, updatedPost).then((res) => {
+      console.log(res.data);
+      if (res.data?.modifiedCount) {
+        Swal.fire({
+          title: "Tution Info Updated.",
+          icon: "success",
+          confirmButtonColor: "#188bfe",
+        });
+      }
+    });
   };
 
   return (
@@ -75,7 +98,7 @@ const MyTutions = () => {
                   </button>
 
                   <button
-                    onClick={() => handleUpdateTution(tution)}
+                    onClick={() => handleEditTution(tution?._id)}
                     className="btn btn-secondary text-black btn-sm hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
                   >
                     Edit
@@ -108,6 +131,7 @@ const MyTutions = () => {
                             name="subject"
                             defaultValue={tution?.subject}
                             className="input input-bordered w-full rounded-lg"
+                            {...register("subject")}
                           />
                         </div>
 
@@ -119,8 +143,9 @@ const MyTutions = () => {
                           <input
                             type="text"
                             name="class"
-                            defaultValue={`Class ${tution?.class}`}
+                            defaultValue={`${tution?.class.split(" ")[0]}`}
                             className="input input-bordered w-full rounded-lg"
+                            {...register("class")}
                           />
                         </div>
 
@@ -134,6 +159,7 @@ const MyTutions = () => {
                             name="location"
                             defaultValue={tution?.location}
                             className="input input-bordered w-full rounded-lg"
+                            {...register("location")}
                           />
                         </div>
 
@@ -147,6 +173,7 @@ const MyTutions = () => {
                             name="budget"
                             defaultValue={tution?.budget}
                             className="input input-bordered w-full rounded-lg"
+                            {...register("budget")}
                           />
                         </div>
 
@@ -160,11 +187,15 @@ const MyTutions = () => {
                             defaultValue="Looking for a tutor for weekly classes."
                             className="textarea textarea-bordered w-full rounded-lg"
                             rows={3}
+                            {...register("description")}
                           />
                         </div>
 
                         {/* Save Button */}
-                        <button className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200">
+                        <button
+                          onClick={handleSubmit(handleSaveChanges)}
+                          className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
+                        >
                           Save Changes
                         </button>
                       </form>
@@ -176,13 +207,6 @@ const MyTutions = () => {
                       >
                         Cancel
                       </button>
-                    </div>
-
-                    <div className="modal-action">
-                      <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        {/* <button className="btn">Close</button> */}
-                      </form>
                     </div>
                   </div>
                 </dialog>
