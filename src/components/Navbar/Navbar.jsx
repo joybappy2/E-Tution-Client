@@ -1,4 +1,3 @@
-import React from "react";
 import { IoMdMenu } from "react-icons/io";
 import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
@@ -9,6 +8,7 @@ import useRole from "../../hooks/useRole";
 const Navbar = () => {
   const { user, loadingUser, logout } = useAuth();
   const role = useRole();
+  console.log(user);
 
   const links = (
     <>
@@ -87,7 +87,7 @@ const Navbar = () => {
       <div className="navbar-end flex items-center gap-2 sm:gap-4">
         {user ? (
           <div
-            title={user.email}
+            title={user?.email}
             className={`dropdown dropdown-end flex items-center `}
           >
             <div
@@ -96,7 +96,7 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar hover:ring hover:ring-primary/30 transition"
             >
               <div className="w-9 sm:w-10 rounded-full hover:scale-105 transition-all duration-200">
-                <img alt="avatar" src={`${user.photoURL}`} />
+                <img alt="avatar" src={`${user?.photoURL}`} />
               </div>
             </div>
 
@@ -117,7 +117,9 @@ const Navbar = () => {
               </li>
 
               <li>
-                <a>Profile <span className="text-gray-500">({role})</span></a>
+                <a>
+                  Profile <span className="text-gray-500">({role})</span>
+                </a>
               </li>
               <li>
                 <NavLink to={`/dashboard/${role && role}`}>Dashboard</NavLink>

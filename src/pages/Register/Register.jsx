@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const { registerUser, loadingUser, loginWithGoogle } = useAuth();
+  const { registerUser, loadingUser, loginWithGoogle, updaUserInfo } =
+    useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
 
@@ -24,8 +26,9 @@ const Register = () => {
     const phone = data.phone;
     const photoURL = data.photoURL;
 
-    registerUser(email, password)
-      .then(() => {
+    registerUser(email, password).then(() => {
+      navigate("/");
+      updaUserInfo(name, photoURL).then(() => {
         const newUser = {
           name: name,
           email: email,
@@ -33,19 +36,18 @@ const Register = () => {
           phone: phone,
           photoURL: photoURL,
         };
+
         axiosSecure.post("/users", newUser).then((res) => {
-          if (res.data.insertedId) {
-            alert("User Saved to MongoDB");
+          if (res.data?.insertedId) {
+            Swal.fire({
+              title: `Welcome ${newUser?.name}`,
+              icon: "success",
+              confirmButtonColor: "#188bfe",
+            });
           }
         });
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.code === "auth/email-already-in-use") {
-          alert("User already Exists");
-        }
-        console.log(err.code);
       });
+    });
   };
 
   // -------HANDLE GOOGLE LOGIN--------
@@ -53,10 +55,10 @@ const Register = () => {
     loginWithGoogle()
       .then((res) => {
         const newUser = {
-          name: res.user.displayName,
-          email: res.user.email,
+          name: res.user?.displayName,
+          email: res.user?.email,
           role: "student",
-          phone: "",
+          phone: "google signed",
           photoURL: res.user?.photoURL,
         };
         axiosSecure
@@ -145,8 +147,17 @@ const Register = () => {
               type="password"
               className="input w-full"
               placeholder="Password"
-              {...register("password")}
+              {...register("password", { minLength: 6, required: true })}
             />
+            {errors.password?.type === "minLength" && (
+              <p className="text-error">
+                Password can't be less than 6 characters.
+              </p>
+            )}
+            {errors.password?.type === "required" && (
+              <p className="text-error">Password is required.</p>
+            )}
+
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>

@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 import Loading from "../../components/Loading/Loading";
@@ -42,6 +43,14 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
+  // UPDATE USER PFOFILE
+  const updaUserInfo = (displayName,photoURL) => {
+    return updateProfile(auth.currentUser, {
+      photoURL: photoURL,
+      displayName: displayName,
+    });
+  };
+
   //   LOGOUT
   const logout = () => {
     setLoadingUser(true);
@@ -58,6 +67,7 @@ const AuthProvider = ({ children }) => {
     loadingUser,
     loginUser,
     loginWithGoogle,
+    updaUserInfo,
     logout,
   };
 
