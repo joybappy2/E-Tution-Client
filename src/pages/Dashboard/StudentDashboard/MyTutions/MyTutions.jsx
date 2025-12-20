@@ -10,7 +10,7 @@ const MyTutions = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const modalRef = useRef(null);
-  const [clickedCurrentTution, setClickedCurrentTution] = useState("");
+  const [tutionInfo, setTutionInfo] = useState("");
   // const [deleteId, setDeleteId] = useState("");
   const { register, handleSubmit, reset } = useForm();
 
@@ -29,20 +29,24 @@ const MyTutions = () => {
 
   // ----- Open modal & set clicked tution in state --------
   const handleEditTution = (clickedTution) => {
-    setClickedCurrentTution(clickedTution);
+    setTutionInfo(clickedTution);
+
+    // reset here
+    reset();
+
     modalRef.current.showModal();
   };
 
   // ----- Update Tution Function
   const handleSaveChanges = (data) => {
     data.budget = parseInt(data.budget);
-    const id = clickedCurrentTution._id;
+    const id = tutionInfo._id;
     const updatedPost = data;
 
     axiosSecure.patch(`/update/tution/${id}`, updatedPost).then((res) => {
       if (res.data?.modifiedCount) {
-        refetch();
         modalRef.current.close();
+        refetch();
         Swal.fire({
           title: "Tution Info Updated.",
           icon: "success",
@@ -164,7 +168,10 @@ const MyTutions = () => {
                   ✏️ Update Tuition Post
                 </h2>
 
-                <form onSubmit={handleSubmit(handleSaveChanges)} className="space-y-4">
+                <form
+                  onSubmit={handleSubmit(handleSaveChanges)}
+                  className="space-y-4"
+                >
                   {/* Subject */}
                   <div>
                     <label className="block text-gray-500 text-xs mb-1">
@@ -173,7 +180,7 @@ const MyTutions = () => {
                     <input
                       type="text"
                       name="subject"
-                      defaultValue={clickedCurrentTution?.subject}
+                      defaultValue={tutionInfo?.subject}
                       className="input input-bordered w-full rounded-lg"
                       {...register("subject")}
                     />
@@ -187,7 +194,7 @@ const MyTutions = () => {
                     <input
                       type="text"
                       name="class"
-                      defaultValue={clickedCurrentTution?.class}
+                      defaultValue={tutionInfo?.class}
                       className="input input-bordered w-full rounded-lg"
                       {...register("class")}
                     />
@@ -201,7 +208,7 @@ const MyTutions = () => {
                     <input
                       type="text"
                       name="location"
-                      defaultValue={clickedCurrentTution?.location}
+                      defaultValue={tutionInfo?.location}
                       className="input input-bordered w-full rounded-lg"
                       {...register("location")}
                     />
@@ -215,7 +222,7 @@ const MyTutions = () => {
                     <input
                       type="number"
                       name="budget"
-                      defaultValue={clickedCurrentTution?.budget}
+                      defaultValue={tutionInfo?.budget}
                       className="input input-bordered w-full rounded-lg"
                       {...register("budget")}
                     />
@@ -236,10 +243,7 @@ const MyTutions = () => {
                   </div>
 
                   {/* Save Button */}
-                  <button
-                    
-                    className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
-                  >
+                  <button className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200">
                     Save Changes
                   </button>
                 </form>

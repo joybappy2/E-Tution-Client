@@ -117,7 +117,7 @@ const Register = () => {
             >
               <option value="">Select a Role</option>
               <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
+              <option value="tutor">Tutor</option>
             </select>
             {errors.role?.type === "required" && (
               <p className="text-error">Plaease select a role</p>

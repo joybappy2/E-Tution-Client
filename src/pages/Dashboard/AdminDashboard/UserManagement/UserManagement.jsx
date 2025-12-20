@@ -1,13 +1,15 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const UserManagement = () => {
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef(null);
   const userUpdateModalRef = useRef(null);
+  const [currentUserRole, setCurrentUserRole] = useState("");
   const { register, handleSubmit, reset } = useForm();
   const [userInfo, setUserInfo] = useState("");
 
@@ -61,6 +63,30 @@ const UserManagement = () => {
         });
       }
     });
+  };
+
+  const handleChangeRole = (userRole) => {
+    setCurrentUserRole(userRole);
+    modalRef.current.showModal();
+  };
+
+  const handleMakeRole = (roleToSet) => {
+    console.log(roleToSet);
+    console.log(currentUserRole);
+    axiosSecure
+      .patch(`/user/${currentUserRole._id}/role?role=${roleToSet}`)
+      .then((res) => {
+        modalRef.current.close();
+
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            title: `${currentUserRole?.name} is now ${roleToSet}`,
+            icon: "success",
+            confirmButtonColor: "#188bfe",
+          });
+        }
+      });
   };
 
   return (
@@ -140,7 +166,7 @@ const UserManagement = () => {
                   </button>
 
                   <button
-                    onClick={() => modalRef.current.showModal()}
+                    onClick={() => handleChangeRole(user)}
                     className="btn btn-sm btn-outline"
                   >
                     Change Role
@@ -230,16 +256,77 @@ const UserManagement = () => {
       {/* ------- Change role Modal ------ */}
       <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <div className="flex flex-col gap-5">
-            <button className="btn btn-primary">Make Admin</button>
-            <button className="btn btn-primary">Make Student</button>
-            <button className="btn btn-primary">Make Tutor</button>
+          <div className=" w-full my-5">
+            <img
+              className="w-20 h-20 object-cover mx-auto"
+              src={currentUserRole.photoURL}
+              alt=""
+            />
           </div>
+          {/* if role is student show this */}
+          {currentUserRole.role === "student" && (
+            <div className="w-full flex justify-center gap-5">
+              <button
+                onClick={() => handleMakeRole("admin")}
+                className="btn btn-primary"
+              >
+                Make Admin
+              </button>
+
+              <button
+                onClick={() => handleMakeRole("tutor")}
+                className="btn btn-primary"
+              >
+                Make Tutor
+              </button>
+            </div>
+          )}
+
+          {/* if role is admin show this */}
+          {currentUserRole.role === "admin" && (
+            <div className="w-full flex justify-center gap-5">
+              <button
+                onClick={() => handleMakeRole("student")}
+                className="btn btn-primary"
+              >
+                Make Student
+              </button>
+
+              <button
+                onClick={() => handleMakeRole("tutor")}
+                className="btn btn-primary"
+              >
+                Make Tutor
+              </button>
+            </div>
+          )}
+
+          {/* if role is admin show this */}
+          {currentUserRole.role === "teacher" && (
+            <div className="w-full flex justify-center gap-5">
+              <button
+                onClick={() => handleMakeRole("student")}
+                className="btn btn-primary"
+              >
+                Make Student
+              </button>
+
+              <button
+                onClick={() => handleMakeRole("admin")}
+                className="btn btn-primary"
+              >
+                Make Admin
+              </button>
+            </div>
+          )}
+
           <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
+            <button
+              onClick={() => modalRef.current.close()}
+              className="btn btn-error text-white"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </dialog>

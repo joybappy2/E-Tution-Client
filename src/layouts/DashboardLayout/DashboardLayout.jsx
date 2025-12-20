@@ -1,7 +1,12 @@
 import { NavLink, Outlet } from "react-router";
 import Logo from "../../components/Logo/Logo";
+import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { user, handleLogout } = useAuth();
+  const role = useRole();
+
   return (
     <div>
       <div className="flex items-center justify-between bg-base-100 shadow-sm px-4 py-3">
@@ -29,10 +34,53 @@ const DashboardLayout = () => {
           </button>
 
           {/* Avatar */}
-          <div className="avatar">
-            <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img src="https://i.pravatar.cc/150?img=3" alt="User" />
+          <div
+            title={user?.email}
+            className={`dropdown dropdown-end flex items-center `}
+          >
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar hover:ring hover:ring-primary/30 transition"
+            >
+              <div className="w-9 sm:w-10 rounded-full hover:scale-105 transition-all duration-200">
+                <img alt="avatar" src={`${user?.photoURL}`} />
+              </div>
             </div>
+
+            <ul
+              tabIndex={-1}
+              className="menu menu-sm dropdown-content
+              bg-base-100
+              rounded-box
+              z-50 mt-3 w-52 p-2
+              shadow-sm
+              [&_a:active]:bg-primary 
+              [&_a:active]:text-white
+              top-11
+              "
+            >
+              <li className="">
+                <p className="">{user?.email}</p>
+              </li>
+
+              <li>
+                <a>
+                  Profile <span className="text-gray-500">({role})</span>
+                </a>
+              </li>
+              <li>
+                <NavLink to={`/dashboard/${role && role}`}>Dashboard</NavLink>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+
+              {/* -----REGISTER FORM-------- */}
+              <li onClick={handleLogout}>
+                <a className="text-error">Logout</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
