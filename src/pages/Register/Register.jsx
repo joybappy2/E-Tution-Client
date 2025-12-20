@@ -22,6 +22,7 @@ const Register = () => {
     const password = data.password;
     const role = data.role;
     const phone = data.phone;
+    const photoURL = data.photoURL;
 
     registerUser(email, password)
       .then(() => {
@@ -30,6 +31,7 @@ const Register = () => {
           email: email,
           role: role,
           phone: phone,
+          photoURL: photoURL,
         };
         axiosSecure.post("/users", newUser).then((res) => {
           if (res.data.insertedId) {
@@ -55,6 +57,7 @@ const Register = () => {
           email: res.user.email,
           role: "student",
           phone: "",
+          photoURL: res.user?.photoURL,
         };
         axiosSecure
           .post("/users", newUser)
@@ -125,6 +128,15 @@ const Register = () => {
               className="input w-full"
               placeholder="Phone"
               {...register("phone")}
+            />
+
+            {/* photoURL */}
+            <label className="label">Photo URL</label>
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="Photo Url"
+              {...register("photoURL")}
             />
 
             {/* password */}

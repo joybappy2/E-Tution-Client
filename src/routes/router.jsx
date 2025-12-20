@@ -6,7 +6,6 @@ import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
-import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import StudentRoute from "./StudentRoute";
 import TeacherRoute from "./TeacherRoute";
 import AdminRoute from "./AdminRoute";
@@ -19,6 +18,7 @@ import UserManagement from "../pages/Dashboard/AdminDashboard/UserManagement/Use
 import TutionManagement from "../pages/Dashboard/AdminDashboard/TutionManagement/TutionManagement";
 import ReportsAnalytics from "../pages/Dashboard/AdminDashboard/ReportsAnalytics/ReportsAnalytics";
 import TutionDetails from "../pages/TutionDetails/TutionDetails";
+import AllTutions from "../pages/AllTutions/AllTutions";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +28,22 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "tutions",
+        element: (
+          <PrivateRoute>
+            <AllTutions></AllTutions>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "tution-details/:id",
+        element: (
+          <PrivateRoute>
+            <TutionDetails></TutionDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -44,14 +60,6 @@ const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
-      },
-      {
-        path: "tution-details/:id",
-        element: (
-          <PrivateRoute>
-            <TutionDetails></TutionDetails>
-          </PrivateRoute>
-        ),
       },
     ],
   },

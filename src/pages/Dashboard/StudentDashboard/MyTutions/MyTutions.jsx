@@ -12,7 +12,7 @@ const MyTutions = () => {
   const modalRef = useRef(null);
   const [clickedCurrentTution, setClickedCurrentTution] = useState("");
   // const [deleteId, setDeleteId] = useState("");
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   // ------ loading my tution posts --------
   const {
@@ -164,7 +164,7 @@ const MyTutions = () => {
                   ✏️ Update Tuition Post
                 </h2>
 
-                <form className="space-y-4">
+                <form onSubmit={handleSubmit(handleSaveChanges)} className="space-y-4">
                   {/* Subject */}
                   <div>
                     <label className="block text-gray-500 text-xs mb-1">
@@ -237,7 +237,7 @@ const MyTutions = () => {
 
                   {/* Save Button */}
                   <button
-                    onClick={handleSubmit(handleSaveChanges)}
+                    
                     className="w-full btn btn-primary hover:brightness-110 hover:shadow-lg active:scale-95 transition-all duration-200"
                   >
                     Save Changes
