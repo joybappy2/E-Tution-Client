@@ -43,11 +43,13 @@ const UserManagement = () => {
     const name = data?.name;
     const phone = data?.phone || "";
     const photoURL = data?.photoURL || "";
+    const verificationStatus = data?.verificationStatus;
 
     const updatedInfo = {
       name,
       phone,
       photoURL,
+      verificationStatus,
     };
 
     axiosSecure.patch(`/users/${id}/update-info`, updatedInfo).then((res) => {
@@ -146,7 +148,7 @@ const UserManagement = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   {/* User Image */}
                   <div className="avatar">
-                    <div className="w-14 rounded-full">
+                    <div className="w-16 h-16 rounded-full">
                       <img
                         className="w-full h-full object-cover"
                         src={
@@ -175,10 +177,18 @@ const UserManagement = () => {
                       <p>{user?.role}</p>
                     </div>
 
-                    <div>
-                      <p className="text-xs text-gray-500">Account Status</p>
-                      <span className="badge badge-success badge-outline">
-                        Active
+                    <div className="">
+                      <p className="text-xs text-gray-500">
+                        Verification Status
+                      </p>
+                      <span
+                        className={`badge badge-soft ${
+                          user?.verificationStatus === "verified"
+                            ? "badge-success"
+                            : "badge-warning"
+                        }`}
+                      >
+                        {user?.verificationStatus || "no status"}
                       </span>
                     </div>
                   </div>
@@ -223,6 +233,7 @@ const UserManagement = () => {
                 </h2>
 
                 <form
+                  // eslint-disable-next-line react-hooks/refs
                   onSubmit={handleSubmit(handleUpdateUserInfo)}
                   className="space-y-4"
                 >
@@ -263,6 +274,19 @@ const UserManagement = () => {
                       rows={3}
                       {...register("phone")}
                     />
+                  </div>
+
+                  <div className={`${userInfo.verificationStatus == 'verified' && 'hidden'}`}>
+                    <label className="block text-gray-500 text-xs mb-1">
+                      Verification Status
+                    </label>
+
+                    <input
+                    {...register('verificationStatus')}
+                      type="checkbox"
+                      className="checkbox checked:bg-primary checked:text-white"
+                    />
+                    <span className="ml-2">Verified</span>
                   </div>
 
                   {/* Save Button */}
