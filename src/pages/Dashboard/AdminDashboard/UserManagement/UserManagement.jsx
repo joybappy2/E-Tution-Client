@@ -3,7 +3,6 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
 
 const UserManagement = () => {
   const axiosSecure = useAxiosSecure();
@@ -70,6 +69,7 @@ const UserManagement = () => {
     modalRef.current.showModal();
   };
 
+  //  ------- handle change user role -------
   const handleMakeRole = (roleToSet) => {
     console.log(roleToSet);
     console.log(currentUserRole);
@@ -87,6 +87,34 @@ const UserManagement = () => {
           });
         }
       });
+  };
+
+  //  ------- handle delete user profile -------
+  const handleDeleteUser = (uid) => {
+    console.log(uid);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#188bfe",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/delete/user/${uid}`).then((res) => {
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted successfully.",
+              icon: "success",
+              confirmButtonColor: "#188bfe",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -172,7 +200,10 @@ const UserManagement = () => {
                     Change Role
                   </button>
 
-                  <button className="btn btn-sm btn-ghost text-error">
+                  <button
+                    onClick={() => handleDeleteUser(user?.uid)}
+                    className="btn btn-sm btn-ghost text-error"
+                  >
                     Delete Account
                   </button>
                 </div>

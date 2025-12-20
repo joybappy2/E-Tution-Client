@@ -26,7 +26,8 @@ const Register = () => {
     const phone = data.phone;
     const photoURL = data.photoURL;
 
-    registerUser(email, password).then(() => {
+    registerUser(email, password).then((res) => {
+      console.log(res.user.uid);
       navigate("/");
       updaUserInfo(name, photoURL).then(() => {
         const newUser = {
@@ -35,6 +36,7 @@ const Register = () => {
           role: role,
           phone: phone,
           photoURL: photoURL,
+          uid: res.user.uid,
         };
 
         axiosSecure.post("/users", newUser).then((res) => {
@@ -54,12 +56,14 @@ const Register = () => {
   const handleGoogleLogin = () => {
     loginWithGoogle()
       .then((res) => {
+        console.log(res.user.uid, 'form register');
         const newUser = {
           name: res.user?.displayName,
           email: res.user?.email,
           role: "student",
           phone: "google signed",
           photoURL: res.user?.photoURL,
+          uid: res.user.uid,
         };
         axiosSecure
           .post("/users", newUser)

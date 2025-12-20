@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   updateProfile,
+  deleteUser,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 import Loading from "../../components/Loading/Loading";
@@ -44,7 +45,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // UPDATE USER PFOFILE
-  const updaUserInfo = (displayName,photoURL) => {
+  const updaUserInfo = (displayName, photoURL) => {
     return updateProfile(auth.currentUser, {
       photoURL: photoURL,
       displayName: displayName,
@@ -55,6 +56,11 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     setLoadingUser(true);
     return signOut(auth);
+  };
+
+  // DELETE USER PROFILE
+  const deleteUserProfile = () => {
+    return deleteUser(auth.currentUser);
   };
 
   if (loadingUser) {
@@ -69,6 +75,7 @@ const AuthProvider = ({ children }) => {
     loginWithGoogle,
     updaUserInfo,
     logout,
+    deleteUserProfile,
   };
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;
