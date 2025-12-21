@@ -20,6 +20,7 @@ import ReportsAnalytics from "../pages/Dashboard/AdminDashboard/ReportsAnalytics
 import TutionDetails from "../pages/TutionDetails/TutionDetails";
 import AllTutions from "../pages/AllTutions/AllTutions";
 import AppliedTutor from "../pages/Dashboard/StudentDashboard/AppliedTutor/AppliedTutor";
+import MyApplications from "../pages/Dashboard/TeacherDashboard/MyApplications/MyApplications";
 
 const router = createBrowserRouter([
   {
@@ -114,7 +115,7 @@ const router = createBrowserRouter([
           },
           {
             path: "my-applications",
-            element: <p>My Applications</p>,
+            element: <MyApplications></MyApplications>,
           },
           {
             path: "on-going-tutions",

@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 const AppliedTutor = () => {
   const axiosSecure = useAxiosSecure();
