@@ -5,10 +5,12 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useRole from "../../hooks/useRole";
 
 const TutionDetails = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const role = useRole();
   const applyModalRef = useRef(null);
   const { register, handleSubmit } = useForm();
 
@@ -57,6 +59,15 @@ const TutionDetails = () => {
       .post("/tution/applications", newApplication)
       .then((res) => {
         console.log(res.data);
+        if (res.data?.insertedId) {
+          applyModalRef.close();
+          Swal.fire({
+            title: "Applied",
+            text: "Wait for confirmation",
+            icon: "success",
+            confirmButtonColor: "#188bfe",
+          });
+        }
       })
       .catch((err) => {
         applyModalRef.current.close();
@@ -130,11 +141,17 @@ const TutionDetails = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex flex-wrap gap-3 justify-end">
-              <button disabled={isApplied} onClick={handleClickApply} className="btn btn-primary">
-                Apply
-              </button>
-            </div>
+            {role === "tutor" && (
+              <div className="flex flex-wrap gap-3 justify-end">
+                <button
+                  disabled={isApplied}
+                  onClick={handleClickApply}
+                  className="btn btn-primary"
+                >
+                  Apply
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

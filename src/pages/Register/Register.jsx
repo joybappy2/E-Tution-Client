@@ -1,7 +1,7 @@
 import Button from "../../components/Button/Button";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
@@ -56,7 +56,7 @@ const Register = () => {
   const handleGoogleLogin = () => {
     loginWithGoogle()
       .then((res) => {
-        console.log(res.user.uid, 'form register');
+        console.log(res.user.uid, "form register");
         const newUser = {
           name: res.user?.displayName,
           email: res.user?.email,
@@ -94,6 +94,7 @@ const Register = () => {
           <h2 className="text-xl md:text-2xl font-semibold text-center">
             Register
           </h2>
+
           <fieldset className="fieldset">
             {/* name */}
             <label className="label">Name</label>
@@ -214,6 +215,13 @@ const Register = () => {
             </span>
             Login With Google
           </Button>
+        </div>
+
+        <div className="text-sm mt-4 text-center">
+          Already have an account?{" "}
+          <Link to="/login">
+            <span className="text-primary hover:text-blue-700">Login</span>
+          </Link>
         </div>
       </div>
     </div>

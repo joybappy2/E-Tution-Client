@@ -101,12 +101,30 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "teacher",
+        path: "tutor",
         element: (
           <TeacherRoute>
             <TeacherDashboard></TeacherDashboard>
           </TeacherRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: <p>Tutor Dashboard Home</p>,
+          },
+          {
+            path: "my-applications",
+            element: <p>My Applications</p>,
+          },
+          {
+            path: "on-going-tutions",
+            element: <p>On going Tutions</p>,
+          },
+          {
+            path: "earnings",
+            element: <p>My Earnings</p>,
+          },
+        ],
       },
 
       {

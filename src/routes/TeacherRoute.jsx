@@ -9,7 +9,7 @@ const TeacherRoute = ({ children }) => {
     return null;
   }
 
-  if (role !== "teacher") {
+  if (role !== "tutor") {
     return <p>Forbidden Access Only For Teachers</p>;
   }
 
