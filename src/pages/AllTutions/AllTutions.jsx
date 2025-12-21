@@ -9,7 +9,7 @@ const AllTutions = () => {
           Find Available Tuitions
         </h1>
         <p className="text-slate-500 mt-2">
-          Browse the latest tuition posts [cite: 95]
+          Browse the latest tuition posts
         </p>
       </div>
 

@@ -1,10 +1,27 @@
 import { Link } from "react-router";
 import heroPng from "../../assets/Kids Studying from Home-bro.png";
 import Button from "../../components/Button/Button";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { formatDistanceToNow } from "date-fns";
 
 const Home = () => {
-  const tutions = [1, 2, 3, 4, 5, 6];
   const tutors = [1, 2, 3, 4, 5, 6];
+  const axiosSecure = useAxiosSecure();
+
+  const timeDistance = (time) => {
+    const postedAt = formatDistanceToNow(new Date(time), { addSuffix: true });
+
+    return postedAt;
+  };
+
+  const { data: tutions = [], isLoading } = useQuery({
+    queryKey: ["tutions"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/all-tutions?status=`);
+      return res.data;
+    },
+  });
 
   return (
     <div>
@@ -51,25 +68,41 @@ const Home = () => {
           </h2>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tutions.map((tution) => (
-              // ----- Tutor Card --------
-              <div
-                key={tution}
-                className="card bg-base-100 shadow-sm hover:shadow-md transition"
-              >
-                <div className="card-body">
-                  <h3 className="font-semibold text-lg">Math Tutor Needed</h3>
-
-                  <p className="text-sm text-gray-500">Class 10 · Dhaka</p>
-
-                  <p className="mt-2 font-medium">Budget: 5000 BDT</p>
-
-                  <Link className="mt-4 text-primary font-medium">
-                    View Details →
-                  </Link>
-                </div>
+            {isLoading ? (
+              <div className="flex justify-center min-h-50 items-center">
+                <span className="loading loading-infinity text-primary loading-xl"></span>
               </div>
-            ))}
+            ) : (
+              tutions.map((tution) => (
+                // ----- Tutor Card --------
+                <div
+                  key={tution._id}
+                  className="card bg-base-100 shadow-sm hover:shadow-md transition"
+                >
+                  <div className="card-body">
+                    <h3 className="font-semibold text-lg">
+                      {tution?.subject} Tutor Needed
+                    </h3>
+
+                    <p className="text-sm text-gray-500">
+                      Class {tution?.class}
+                    </p>
+
+                    <p className="mt-2 font-medium">
+                      Budget: {tution?.budget} BDT
+                    </p>
+
+                    <p className="mt-2 font-medium">
+                      {timeDistance(tution?.createdAt)}
+                    </p>
+
+                    <Link className="mt-4 text-primary font-medium">
+                      View Details →
+                    </Link>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

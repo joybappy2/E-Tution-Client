@@ -104,8 +104,9 @@ const TutionManagement = () => {
                   </button>
 
                   <button
+                    disabled={tution?.status === "rejected"}
                     onClick={() => handleTutionStatus("rejected", tution?._id)}
-                    className="btn btn-sm btn-outline text-error"
+                    className="btn btn-sm btn-error text-white"
                   >
                     Reject
                   </button>

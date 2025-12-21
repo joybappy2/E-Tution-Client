@@ -8,7 +8,7 @@ import useRole from "../../hooks/useRole";
 const Navbar = () => {
   const { user, loadingUser, logout } = useAuth();
   const role = useRole();
-  console.log(user);
+  // console.log(user);
 
   const links = (
     <>
