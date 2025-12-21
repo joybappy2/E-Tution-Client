@@ -22,6 +22,7 @@ const PostTution = () => {
       location: data.location,
       budget: parseInt(data.budget),
       email: user?.email,
+      description: data.description,
     };
 
     axiosSecure.post("/post-Tution", newPost).then((res) => {
@@ -114,6 +115,22 @@ const PostTution = () => {
               />
               {errors?.budget?.type === "required" && (
                 <p className="text-error text-xs">Budget is required</p>
+              )}
+            </div>
+
+            <div className="form-control sm:col-span-2">
+              <label className="label">
+                <span className="label-text font-medium">Description</span>
+              </label>
+              <textarea
+                placeholder="Enter Description"
+                className="textarea w-full"
+                required
+                {...register("description", { required: true })}
+              ></textarea>
+
+              {errors?.description?.type === "required" && (
+                <p className="text-error text-xs">Description is required</p>
               )}
             </div>
 

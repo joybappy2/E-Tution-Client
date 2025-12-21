@@ -18,7 +18,7 @@ const Home = () => {
   const { data: tutions = [], isLoading } = useQuery({
     queryKey: ["tutions"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/all-tutions?status=`);
+      const res = await axiosSecure.get(`/all-tutions?status=approved`);
       return res.data;
     },
   });
@@ -96,7 +96,7 @@ const Home = () => {
                       {timeDistance(tution?.createdAt)}
                     </p>
 
-                    <Link className="mt-4 text-primary font-medium">
+                    <Link to={`/tution-details/${tution?._id}`} className="mt-4 text-primary font-medium">
                       View Details →
                     </Link>
                   </div>

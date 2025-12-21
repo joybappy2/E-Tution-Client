@@ -19,6 +19,7 @@ import TutionManagement from "../pages/Dashboard/AdminDashboard/TutionManagement
 import ReportsAnalytics from "../pages/Dashboard/AdminDashboard/ReportsAnalytics/ReportsAnalytics";
 import TutionDetails from "../pages/TutionDetails/TutionDetails";
 import AllTutions from "../pages/AllTutions/AllTutions";
+import AppliedTutor from "../pages/Dashboard/StudentDashboard/AppliedTutor/AppliedTutor";
 
 const router = createBrowserRouter([
   {
@@ -139,7 +140,7 @@ const router = createBrowserRouter([
           },
           {
             path: "applied-tutors",
-            element: <p>Applied Tutors</p>,
+            element: <AppliedTutor></AppliedTutor>,
           },
           {
             path: "payments",

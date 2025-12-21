@@ -357,7 +357,7 @@ const UserManagement = () => {
           )}
 
           {/* if role is admin show this */}
-          {currentUserRole.role === "teacher" && (
+          {currentUserRole.role === "tutor" && (
             <div className="w-full flex justify-center gap-5">
               <button
                 onClick={() => handleMakeRole("student")}

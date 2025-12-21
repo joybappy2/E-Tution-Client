@@ -1,6 +1,25 @@
-import React from "react";
+import { formatDistanceToNow } from "date-fns";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 const AllTutions = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const timeDistance = (time) => {
+    const postedAt = formatDistanceToNow(new Date(time), { addSuffix: true });
+
+    return postedAt;
+  };
+
+  const { data: latestTutions = [], isLoading } = useQuery({
+    queryKey: ["tutions"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/all-tutions?status=approved`);
+      return res.data;
+    },
+  });
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 space-y-10 bg-slate-50 min-h-screen">
       {/* Section Title */}
@@ -8,9 +27,7 @@ const AllTutions = () => {
         <h1 className="text-4xl font-bold text-slate-900">
           Find Available Tuitions
         </h1>
-        <p className="text-slate-500 mt-2">
-          Browse the latest tuition posts
-        </p>
+        <p className="text-slate-500 mt-2">Browse the latest tuition posts</p>
       </div>
 
       {/* Search & Filter Box [cite: 203, 204] */}
@@ -21,14 +38,12 @@ const AllTutions = () => {
             <label className="text-sm font-semibold text-slate-700">
               Subject
             </label>
-            <select className="select select-bordered w-full bg-white">
-              <option disabled selected>
-                Select Subject
-              </option>
+            {/* <select className="select select-bordered w-full bg-white">
+              <option value="none">Select Subject</option>
               <option>Math</option>
               <option>Physics</option>
               <option>English</option>
-            </select>
+            </select> */}
           </div>
 
           {/* Class Filter [cite: 204] */}
@@ -36,14 +51,14 @@ const AllTutions = () => {
             <label className="text-sm font-semibold text-slate-700">
               Class
             </label>
-            <select className="select select-bordered w-full bg-white">
+            {/* <select className="select select-bordered w-full bg-white">
               <option disabled selected>
                 Select Class
               </option>
               <option>Class 10</option>
               <option>Class 11</option>
               <option>Class 12</option>
-            </select>
+            </select> */}
           </div>
 
           {/* Location Filter [cite: 204] */}
@@ -51,14 +66,14 @@ const AllTutions = () => {
             <label className="text-sm font-semibold text-slate-700">
               Location
             </label>
-            <select className="select select-bordered w-full bg-white">
+            {/* <select className="select select-bordered w-full bg-white">
               <option disabled selected>
                 Select Location
               </option>
               <option>Dhaka</option>
               <option>Chattogram</option>
               <option>Rajshahi</option>
-            </select>
+            </select> */}
           </div>
 
           {/* ID Search [cite: 203] */}
@@ -99,91 +114,41 @@ const AllTutions = () => {
         </div>
       </div>
 
-      {/* Tuition Grid [cite: 95] */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Card 1 */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">
-            Math Tutor Needed
-          </h3>
-          <div className="space-y-3 text-slate-600">
-            <p className="font-medium">Class 10 · Dhaka [cite: 21]</p>
-            <p className="font-semibold text-slate-900">
-              Budget: 5000 BDT [cite: 21]
-            </p>
-            <p className="text-sm italic text-slate-500">
-              Mon, Wed, Sat (4:00 PM – 6:00 PM) [cite: 21]
-            </p>
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {isLoading ? (
+          <div className="flex justify-center min-h-50 items-center">
+            <span className="loading loading-infinity text-primary loading-xl"></span>
           </div>
-          <div className="mt-6 pt-4 border-t border-slate-50">
-            <span className="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline">
-              View Details → [cite: 59]
-            </span>
-          </div>
-        </div>
-    
-        {/* Card 2 */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">
-            Physics Tutor Needed
-          </h3>
-          <div className="space-y-3 text-slate-600">
-            <p className="font-medium">Class 12 · Chattogram [cite: 21]</p>
-            <p className="font-semibold text-slate-900">
-              Budget: 7000 BDT [cite: 21]
-            </p>
-            <p className="text-sm italic text-slate-500">
-              Sun, Tue, Thu (5:00 PM – 7:00 PM) [cite: 21]
-            </p>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-50">
-            <span className="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline">
-              View Details → [cite: 59]
-            </span>
-          </div>
-        </div>
+        ) : (
+          latestTutions?.map((tution) => (
+            // ----- Tutor Card --------
+            <div
+              key={tution._id}
+              className="card bg-base-100 shadow-sm hover:shadow-md transition"
+            >
+              <div className="card-body">
+                <h3 className="font-semibold text-lg">
+                  {tution?.subject} Tutor Needed
+                </h3>
 
-        {/* Card 3 */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">
-            English Tutor Needed
-          </h3>
-          <div className="space-y-3 text-slate-600">
-            <p className="font-medium">Class 8 · Dhaka [cite: 21]</p>
-            <p className="font-semibold text-slate-900">
-              Budget: 4000 BDT [cite: 21]
-            </p>
-            <p className="text-sm italic text-slate-500">
-              Tue, Thu (3:00 PM – 4:30 PM) [cite: 21]
-            </p>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-50">
-            <span className="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline">
-              View Details → [cite: 59]
-            </span>
-          </div>
-        </div>
+                <p className="text-sm text-gray-500">Class {tution?.class}</p>
 
-        {/* Card 4 */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">
-            Chemistry Tutor Needed
-          </h3>
-          <div className="space-y-3 text-slate-600">
-            <p className="font-medium">Class 11 · Rajshahi [cite: 21]</p>
-            <p className="font-semibold text-slate-900">
-              Budget: 6000 BDT [cite: 21]
-            </p>
-            <p className="text-sm italic text-slate-500">
-              Wed, Fri (6:00 PM – 8:00 PM) [cite: 21]
-            </p>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-50">
-            <span className="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline">
-              View Details → [cite: 59]
-            </span>
-          </div>
-        </div>
+                <p className="mt-2 font-medium">Budget: {tution?.budget} BDT</p>
+
+                <p className="mt-2 font-medium">
+                  {timeDistance(tution?.createdAt)}
+                </p>
+
+                <Link
+                  to={`/tution-details/${tution?._id}`}
+                  className="mt-4 text-primary font-medium"
+                >
+                  View Details →
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Pagination [cite: 203] */}
