@@ -39,7 +39,7 @@ const UserManagement = () => {
 
   //  ------- handle update user info -------
   const handleUpdateUserInfo = (data) => {
-    const id = userInfo?._id;
+    const uid = userInfo?.uid;
     const name = data?.name;
     const phone = data?.phone || "";
     const photoURL = data?.photoURL || "";
@@ -52,9 +52,10 @@ const UserManagement = () => {
       verificationStatus,
     };
 
-    axiosSecure.patch(`/users/${id}/update-info`, updatedInfo).then((res) => {
+    axiosSecure.patch(`/users/${uid}/update-info`, updatedInfo).then((res) => {
       if (res.data.modifiedCount) {
         userUpdateModalRef.current.close();
+
         refetch();
 
         Swal.fire({
@@ -276,13 +277,17 @@ const UserManagement = () => {
                     />
                   </div>
 
-                  <div className={`${userInfo.verificationStatus == 'verified' && 'hidden'}`}>
+                  <div
+                    className={`${
+                      userInfo.verificationStatus == "verified" && "hidden"
+                    }`}
+                  >
                     <label className="block text-gray-500 text-xs mb-1">
                       Verification Status
                     </label>
 
                     <input
-                    {...register('verificationStatus')}
+                      {...register("verificationStatus")}
                       type="checkbox"
                       className="checkbox checked:bg-primary checked:text-white"
                     />

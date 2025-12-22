@@ -150,6 +150,7 @@ const MyApplications = () => {
               {/* Actions */}
               <div className="flex flex-wrap gap-2 mt-4">
                 <button
+                  disabled={application?.applicationStatus === "accepted"}
                   onClick={() => handleClickUpdate(application?._id)}
                   className="btn btn-sm btn-primary"
                 >
@@ -157,6 +158,7 @@ const MyApplications = () => {
                 </button>
 
                 <button
+                  disabled={application?.applicationStatus === "accepted"}
                   onClick={() => handleDeleteApplication(application?._id)}
                   className="btn btn-sm btn-error text-white"
                 >

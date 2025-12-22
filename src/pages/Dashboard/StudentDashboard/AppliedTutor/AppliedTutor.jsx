@@ -10,10 +10,16 @@ const AppliedTutor = () => {
   const { data: applications = [], isLoading } = useQuery({
     queryKey: ["applications"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/tution/applications/${user?.email}`);
+      const res = await axiosSecure.get(
+        `/applications/appliedTutors/${user?.email}`
+      );
       return res.data;
     },
   });
+
+  const handleAcceptTution = (application) => {
+    console.log(application);
+  };
 
   console.log(applications);
 
@@ -37,8 +43,9 @@ const AppliedTutor = () => {
               <th>Name</th>
               <th>Qualifications</th>
               <th>Experience</th>
+              <th>Tution Subject</th>
               <th>Expected Salary</th>
-              <th>Actions (Accept/Delete)</th>
+              <th>Tution Post</th>
             </tr>
           </thead>
           <tbody>
@@ -74,7 +81,6 @@ const AppliedTutor = () => {
                     <div className="text-sm opacity-90">
                       {application?.qualification}
                     </div>
-                    <span className="badge badge-ghost badge-sm">{""}</span>
                   </td>
 
                   {/* Experience */}
@@ -84,15 +90,22 @@ const AppliedTutor = () => {
                   <td className="font-semibold">
                     {application?.expectedSalary} BDT
                   </td>
+                  {/* Tution Post */}
+                  <td className="font-semibold">
+                    {application?.tuitonPostSubject}
+                  </td>
 
                   {/* Actions */}
                   <th>
                     <div className="flex gap-2">
-                      <button className="btn btn-circle btn-xs btn-outline btn-error">
-                        <FaTimes />
+                      <button className="btn text-white btn-error">
+                        Reject
                       </button>
-                      <button className="btn btn-circle btn-xs btn-success text-white">
-                        <FaCheck />
+                      <button
+                        onClick={() => handleAcceptTution(application)}
+                        className="btn btn-primary text-white"
+                      >
+                        Accept
                       </button>
                     </div>
                   </th>
