@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router";
 import Button from "../../../components/Button/Button";
 import { MdDashboard } from "react-icons/md";
-import {  MdSettings } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
 import {
   FaBookOpen,
   FaChalkboardTeacher,
@@ -26,11 +26,9 @@ const TeacherDashboard = () => {
         >
           {/* Page Title */}
           <div className="mb-6">
-            <h1 className="text-2xl md:text-3xl font-bold">
-              Student Dashboard
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Tutor Dashboard</h1>
             <p className="text-sm text-gray-500 mt-1">
-              Manage your tuitions and activities
+              Manage your tution applications and earnings
             </p>
           </div>
           <h3 className="font-semibold mb-4">Menu</h3>
@@ -79,7 +77,7 @@ const TeacherDashboard = () => {
             </NavLink>
 
             {/* Applied Tutors */}
-            <NavLink to="/dashboard/tutor/earnings">
+            <NavLink to="/dashboard/tutor/revenue-history">
               {({ isActive }) => (
                 <Button
                   className={`w-full justify-start gap-2 ${
@@ -87,7 +85,7 @@ const TeacherDashboard = () => {
                   }`}
                 >
                   <FaClipboardList size={16} />
-                  Earnings
+                  Revenue History
                 </Button>
               )}
             </NavLink>

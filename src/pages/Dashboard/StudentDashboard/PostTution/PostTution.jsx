@@ -9,6 +9,7 @@ const PostTution = () => {
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -27,6 +28,7 @@ const PostTution = () => {
 
     axiosSecure.post("/post-Tution", newPost).then((res) => {
       if (res.data.insertedId) {
+        reset();
         Swal.fire({
           title: "New tution posted. Wait for admin approval.",
           icon: "success",

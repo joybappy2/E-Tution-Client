@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AppliedTutor = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: applications = [], isLoading } = useQuery({
+  const { data: applications = [], isLoading, refetch } = useQuery({
     queryKey: ["applications"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -17,8 +18,36 @@ const AppliedTutor = () => {
     },
   });
 
+  console.log(applications);
+
   const handleAcceptTution = (application) => {
+    const paymentInfo = {
+      expectedSalary: application?.expectedSalary,
+      subjectName: application?.tuitonPostSubject,
+      applicationId: application?._id,
+      tuitonOwnerEmail: application?.tuitonOwnerEmail,
+      tutionPostId: application?.tutionPostId,
+      tutorEmail: application?.tutorEmail,
+    };
+
+    axiosSecure.post("/payment-checkout-session", paymentInfo).then((res) => {
+      window.location.href = res.data.url;
+    });
+  };
+
+  const handleRejectApplication = async (application) => {
     console.log(application);
+    const res = await axiosSecure.patch(
+      `/reject/application/${application._id}`
+    );
+    if (res.data.modifiedCount) { 
+      refetch()
+      Swal.fire({
+        title: "Rejected!",
+        icon: "success",
+        draggable: false
+      });
+    }
   };
 
   console.log(applications);
@@ -43,9 +72,10 @@ const AppliedTutor = () => {
               <th>Name</th>
               <th>Qualifications</th>
               <th>Experience</th>
-              <th>Tution Subject</th>
               <th>Expected Salary</th>
-              <th>Tution Post</th>
+              <th>Tution Subject</th>
+              <th>Application Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -95,10 +125,34 @@ const AppliedTutor = () => {
                     {application?.tuitonPostSubject}
                   </td>
 
+                  <td>
+                    <span
+                      className={`badge badge-soft 
+                        ${
+                          application?.applicationStatus === "approved" &&
+                          "badge-success"
+                        }
+                        ${
+                          application?.applicationStatus === "pending" &&
+                          "badge-warning"
+                        }
+                        ${
+                          application?.applicationStatus === "rejected" &&
+                          "badge-error"
+                        }
+                        `}
+                    >
+                      {application?.applicationStatus}
+                    </span>
+                  </td>
+
                   {/* Actions */}
                   <th>
                     <div className="flex gap-2">
-                      <button className="btn text-white btn-error">
+                      <button
+                        onClick={() => handleRejectApplication(application)}
+                        className="btn text-white btn-error"
+                      >
                         Reject
                       </button>
                       <button

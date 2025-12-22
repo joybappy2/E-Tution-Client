@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
-import { formatDistanceToNow } from "date-fns";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
@@ -135,11 +134,20 @@ const MyApplications = () => {
                   <div className="">
                     <p className="text-xs text-gray-500">Application Status</p>
                     <span
-                      className={`badge badge-soft ${
-                        application?.applicationStatus === "pending"
-                          ? "badge-warning"
-                          : "badge-success"
-                      }`}
+                      className={`badge badge-soft 
+                        ${
+                          application?.applicationStatus === "approved" &&
+                          "badge-success"
+                        }
+                        ${
+                          application?.applicationStatus === "pending" &&
+                          "badge-warning"
+                        }
+                        ${
+                          application?.applicationStatus === "rejected" &&
+                          "badge-error"
+                        }
+                        `}
                     >
                       {application?.applicationStatus || "no status"}
                     </span>
@@ -148,23 +156,23 @@ const MyApplications = () => {
               </div>
 
               {/* Actions */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                <button
-                  disabled={application?.applicationStatus === "accepted"}
-                  onClick={() => handleClickUpdate(application?._id)}
-                  className="btn btn-sm btn-primary"
-                >
-                  Update Info
-                </button>
+              {application?.applicationStatus !== "approved" && (
+                <div className="flex flex-wrap gap-2 mt-4">
+                  <button
+                    onClick={() => handleClickUpdate(application?._id)}
+                    className="btn btn-sm btn-primary"
+                  >
+                    Update Info
+                  </button>
 
-                <button
-                  disabled={application?.applicationStatus === "accepted"}
-                  onClick={() => handleDeleteApplication(application?._id)}
-                  className="btn btn-sm btn-error text-white"
-                >
-                  Delete
-                </button>
-              </div>
+                  <button
+                    onClick={() => handleDeleteApplication(application?._id)}
+                    className="btn btn-sm btn-error text-white"
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))
         )}

@@ -21,6 +21,10 @@ import TutionDetails from "../pages/TutionDetails/TutionDetails";
 import AllTutions from "../pages/AllTutions/AllTutions";
 import AppliedTutor from "../pages/Dashboard/StudentDashboard/AppliedTutor/AppliedTutor";
 import MyApplications from "../pages/Dashboard/TeacherDashboard/MyApplications/MyApplications";
+import PaymentSuccess from "../pages/Dashboard/StudentDashboard/AppliedTutor/PaymentSuccess/PaymentSuccess";
+import PaymentCancelled from "../pages/Dashboard/StudentDashboard/PaymentCancelled";
+import RevenueHistory from "../pages/Dashboard/TeacherDashboard/RevenueHistory/RevenueHistory";
+import AllTutors from "../pages/AllTutors/AllTutors";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +40,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllTutions></AllTutions>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "tutors",
+        element: (
+          <PrivateRoute>
+            <AllTutors></AllTutors>
           </PrivateRoute>
         ),
       },
@@ -122,8 +134,8 @@ const router = createBrowserRouter([
             element: <p>On going Tutions</p>,
           },
           {
-            path: "earnings",
-            element: <p>My Earnings</p>,
+            path: "revenue-history",
+            element: <RevenueHistory></RevenueHistory>,
           },
         ],
       },
@@ -168,6 +180,14 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <p>Profile Settings</p>,
+          },
+          {
+            path: "payment-success",
+            element: <PaymentSuccess></PaymentSuccess>,
+          },
+          {
+            path: "payment-cancelled",
+            element: <PaymentCancelled></PaymentCancelled>,
           },
         ],
       },

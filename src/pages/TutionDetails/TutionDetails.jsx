@@ -24,15 +24,14 @@ const TutionDetails = () => {
     },
   });
 
+  console.log(tuiton);
+
   // const isApplied = () => {
   //   const emails =  tuiton?.appliedEmails
   //   const amiAchi = emails?.includes(user?.email)
   //   return amiAchi || false
   // };
 
-  const isApplied = !!tuiton?.appliedEmails?.includes(user?.email);
-
-  console.log(isApplied);
 
   const handleClickApply = () => {
     applyModalRef.current.showModal();
@@ -60,7 +59,7 @@ const TutionDetails = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data?.insertedId) {
-          applyModalRef.close();
+          applyModalRef.current.close();
           Swal.fire({
             title: "Applied",
             text: "Wait for confirmation",
@@ -144,7 +143,7 @@ const TutionDetails = () => {
             {role === "tutor" && (
               <div className="flex flex-wrap gap-3 justify-end">
                 <button
-                  disabled={isApplied}
+                 
                   onClick={handleClickApply}
                   className="btn btn-primary"
                 >
