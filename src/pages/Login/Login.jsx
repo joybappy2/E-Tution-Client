@@ -37,87 +37,96 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
-      <div className="p-10 bg-base-100 rounded-xl w-sm shadow-xl">
-        {/* -----REGISTER FORM-------- */}
-        <form onSubmit={handleSubmit(handleLogin)} className=" ">
-          <h2 className="text-xl md:text-2xl font-semibold text-center">
-            Login
-          </h2>
-          <fieldset className="fieldset">
-            {/* email */}
-            <label className="label">Email</label>
-            <input
-              type="email"
-              className="input w-full"
-              placeholder="Email"
-              {...register("email", { required: true })}
-            />
+    <div className="flex justify-center items-center min-h-[calc(100vh-100px)] px-4 bg-gray-50">
+      <div className="w-full max-w-md bg-base-100 rounded-2xl shadow-lg p-8 md:p-10">
+        {/* ----- LOGIN FORM ----- */}
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Welcome Back
+            </h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Login to continue managing your tuition activities
+            </p>
+          </div>
 
-            {/* password */}
-            <label className="label">Password</label>
-            <input
-              type="password"
-              className="input w-full"
-              placeholder="Password"
-              {...register("password", { minLength: 6, required: true })}
-            />
-            {errors.password?.type === "minLength" && (
-              <p className="text-error">
-                Password can't be less than 6 characters.
-              </p>
-            )}
-            {errors.password?.type === "required" && (
-              <p className="text-error">Password is required.</p>
-            )}
-
+          <div className="space-y-4">
+            {/* Email */}
             <div>
-              <a className="link link-hover">Forgot password?</a>
+              <label className="label text-sm font-medium">Email</label>
+              <input
+                type="email"
+                className="input input-bordered w-full"
+                placeholder="Enter your email"
+                {...register("email", { required: true })}
+              />
             </div>
-            <Button className="btn-primary">
-              <span>Login</span>
-            </Button>
-          </fieldset>
+
+            {/* Password */}
+            <div>
+              <label className="label text-sm font-medium">Password</label>
+              <input
+                type="password"
+                className="input input-bordered w-full"
+                placeholder="Enter your password"
+                {...register("password", { minLength: 6, required: true })}
+              />
+              {errors.password?.type === "minLength" && (
+                <p className="text-error text-xs mt-1">
+                  Password can't be less than 6 characters.
+                </p>
+              )}
+              {errors.password?.type === "required" && (
+                <p className="text-error text-xs mt-1">Password is required.</p>
+              )}
+            </div>
+
+            {/* Forgot password */}
+            <div className="text-right">
+              <a className="text-sm text-[#188bfe] hover:underline cursor-pointer">
+                Forgot password?
+              </a>
+            </div>
+
+            {/* Login Button */}
+            <Button className="btn-primary w-full h-11">Login</Button>
+          </div>
         </form>
 
-        {/* -------DIVIDER------ */}
-        <div className="flex w-full flex-col">
-          <div className="divider">OR</div>
+        {/* Divider */}
+        <div className="my-8">
+          <div className="divider text-xs text-gray-400">OR</div>
         </div>
 
-        {/* -------Google------ */}
+        {/* Google Login */}
         <div onClick={handleGoogleLogin}>
-          <Button className=" bg-[#5289ff27] w-full">
-            <span>
+          <Button className="w-full h-11 bg-[#5289ff27] text-[#188bfe] hover:bg-[#188bfe15] transition">
+            <span className="flex items-center justify-center gap-3">
               <svg
                 aria-label="Google logo"
                 width="16"
                 height="16"
-                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
-                <g>
-                  <path d="m0 0H512V512H0" fill="#fff"></path>
-                  <path
-                    fill="#34a853"
-                    d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                  ></path>
-                  <path
-                    fill="#4285f4"
-                    d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                  ></path>
-                  <path
-                    fill="#fbbc02"
-                    d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                  ></path>
-                  <path
-                    fill="#ea4335"
-                    d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                  ></path>
-                </g>
+                <path
+                  fill="#34a853"
+                  d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                />
+                <path
+                  fill="#4285f4"
+                  d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                />
+                <path
+                  fill="#fbbc02"
+                  d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                />
+                <path
+                  fill="#ea4335"
+                  d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                />
               </svg>
+              <span className="font-medium">Continue with Google</span>
             </span>
-            Login With Google
           </Button>
         </div>
       </div>

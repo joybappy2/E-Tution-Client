@@ -9,6 +9,7 @@ import {
   FaUserCheck,
   FaSearch,
   FaShieldAlt,
+  FaCheckCircle,
 } from "react-icons/fa";
 
 const Home = () => {
@@ -44,7 +45,7 @@ const Home = () => {
             <span className="text-[#188bfe]">Activities Online</span>
           </h1>
 
-          <p className="mt-4 text-gray-500 text-sm md:text-base max-w-sm mx-auto md:md-0 leading-relaxed">
+          <p className="mt-4 text-gray-500 text-sm md:text-base max-w-sm md:md-0 leading-relaxed">
             A simple platform to manage tuition activities. Tution Post, Apply
             Tution, Online Payment.
           </p>
@@ -168,12 +169,16 @@ const Home = () => {
                   />
                 </div>
 
-                <h3 className="font-semibold text-gray-900 mt-4 text-lg">
-                  {tutor?.name || "Anonymous Tutor"}
+                <h3 className="font-semibold text-gray-900 mt-4 text-lg flex items-center gap-1">
+                  <span> {tutor?.name || "Anonymous Tutor"}</span>{" "}
+                  <span>
+                    {tutor?.verificationStatus === "verified" && (
+                      <FaCheckCircle color="#188bfe"></FaCheckCircle>
+                    )}
+                  </span>
                 </h3>
-                <p className="text-sm text-gray-500 font-medium">
-                  {tutor?.subject || "All Subjects"} ·{" "}
-                  {tutor?.experience || "0"} Years Experience
+                <p className="text-sm text-gray-500 font-medium flex items-center gap-1">
+                  {tutor?.email}
                 </p>
 
                 <Link
