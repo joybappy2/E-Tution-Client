@@ -138,7 +138,7 @@ const UserManagement = () => {
 
           {isLoading ? (
             <div className="flex justify-center min-h-50 items-center">
-              <span className="loading loading-infinity text-primary loading-xl"></span>
+              <span className="loading loading-spinner text-primary loading-xl"></span>
             </div>
           ) : (
             users.map((user) => (

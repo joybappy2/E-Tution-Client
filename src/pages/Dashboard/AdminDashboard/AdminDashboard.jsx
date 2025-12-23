@@ -1,8 +1,8 @@
 import { NavLink, Outlet } from "react-router";
 import Button from "../../../components/Button/Button";
 import { MdDashboard } from "react-icons/md";
-import { MdPayments, MdSettings } from "react-icons/md";
-import { FaBookOpen, FaClipboardList, FaUsers } from "react-icons/fa";
+import { MdSettings } from "react-icons/md";
+import { FaBookOpen, FaUsers } from "react-icons/fa";
 
 const AdminDashboard = () => {
   return (
@@ -72,50 +72,8 @@ const AdminDashboard = () => {
               )}
             </NavLink>
 
-            {/* Report & Analytics */}
-            <NavLink to="/dashboard/admin/manage-reports">
-              {({ isActive }) => (
-                <Button
-                  className={`w-full justify-start gap-2 ${
-                    isActive ? "btn-primary text-white" : "bg-secondary"
-                  }`}
-                >
-                  <FaBookOpen size={16} />
-                  Reports & Analytics
-                </Button>
-              )}
-            </NavLink>
-
-            {/* Tutor Requests */}
-            <NavLink to="/dashboard/admin/tutor-requests">
-              {({ isActive }) => (
-                <Button
-                  className={`w-full justify-start gap-2 ${
-                    isActive ? "btn-primary text-white" : "bg-secondary"
-                  }`}
-                >
-                  <FaClipboardList size={16} />
-                  Tutor Requests
-                </Button>
-              )}
-            </NavLink>
-
-            {/* Payments */}
-            <NavLink to="/dashboard/admin/payments">
-              {({ isActive }) => (
-                <Button
-                  className={`w-full justify-start gap-2 ${
-                    isActive ? "btn-primary text-white" : "bg-secondary"
-                  }`}
-                >
-                  <MdPayments size={18} />
-                  Payments
-                </Button>
-              )}
-            </NavLink>
-
             {/* Settings */}
-            <NavLink to="/dashboard/admin/settings">
+            <NavLink to="/dashboard/admin/profile-settings">
               {({ isActive }) => (
                 <Button
                   className={`w-full justify-start gap-2 ${
@@ -123,7 +81,7 @@ const AdminDashboard = () => {
                   }`}
                 >
                   <MdSettings size={18} />
-                  Platform Settings
+                  Profile Settings
                 </Button>
               )}
             </NavLink>

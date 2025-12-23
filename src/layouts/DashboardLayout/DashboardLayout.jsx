@@ -4,8 +4,19 @@ import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 
 const DashboardLayout = () => {
-  const { user, handleLogout } = useAuth();
+  const { user, logout } = useAuth();
   const role = useRole();
+
+  // ------HANDLE LOGOUT--------
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        console.log("Logout Successful");
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+  };
 
   return (
     <div>
@@ -65,15 +76,13 @@ const DashboardLayout = () => {
               </li>
 
               <li>
-                <a>
-                  Profile <span className="text-gray-500">({role})</span>
-                </a>
-              </li>
-              <li>
                 <NavLink to={`/dashboard/${role && role}`}>Dashboard</NavLink>
               </li>
+
               <li>
-                <a>Settings</a>
+                <NavLink to={`/dashboard/${role}/profile-settings`}>
+                  Profile<span>({role})</span>
+                </NavLink>
               </li>
 
               {/* -----REGISTER FORM-------- */}

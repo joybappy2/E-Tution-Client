@@ -16,7 +16,6 @@ import PostTution from "../pages/Dashboard/StudentDashboard/PostTution/PostTutio
 import MyTutions from "../pages/Dashboard/StudentDashboard/MyTutions/MyTutions";
 import UserManagement from "../pages/Dashboard/AdminDashboard/UserManagement/UserManagement";
 import TutionManagement from "../pages/Dashboard/AdminDashboard/TutionManagement/TutionManagement";
-import ReportsAnalytics from "../pages/Dashboard/AdminDashboard/ReportsAnalytics/ReportsAnalytics";
 import TutionDetails from "../pages/TutionDetails/TutionDetails";
 import AllTutions from "../pages/AllTutions/AllTutions";
 import AppliedTutor from "../pages/Dashboard/StudentDashboard/AppliedTutor/AppliedTutor";
@@ -25,6 +24,10 @@ import PaymentSuccess from "../pages/Dashboard/StudentDashboard/AppliedTutor/Pay
 import PaymentCancelled from "../pages/Dashboard/StudentDashboard/PaymentCancelled";
 import RevenueHistory from "../pages/Dashboard/TeacherDashboard/RevenueHistory/RevenueHistory";
 import AllTutors from "../pages/AllTutors/AllTutors";
+import PaymentHistory from "../pages/Dashboard/StudentDashboard/PaymentHistory/PaymentHistory";
+import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/StudentProfile";
+import AdminProfile from "../pages/Dashboard/AdminDashboard/AdminProfile/AdminProfile";
+import TeacherProfile from "../pages/Dashboard/TeacherDashboard/TeacherProfile/TeacherProfile";
 
 const router = createBrowserRouter([
   {
@@ -107,8 +110,8 @@ const router = createBrowserRouter([
             element: <TutionManagement></TutionManagement>,
           },
           {
-            path: "manage-reports",
-            element: <ReportsAnalytics></ReportsAnalytics>,
+            path: "profile-settings",
+            element: <AdminProfile></AdminProfile>,
           },
         ],
       },
@@ -137,6 +140,10 @@ const router = createBrowserRouter([
             path: "revenue-history",
             element: <RevenueHistory></RevenueHistory>,
           },
+          {
+            path: 'profile-settings',
+            element: <TeacherProfile></TeacherProfile>
+          }
         ],
       },
 
@@ -175,11 +182,11 @@ const router = createBrowserRouter([
           },
           {
             path: "payments",
-            element: <p>Payments</p>,
+            element: <PaymentHistory></PaymentHistory>,
           },
           {
-            path: "settings",
-            element: <p>Profile Settings</p>,
+            path: "profile-settings",
+            element: <StudentProfile></StudentProfile>,
           },
           {
             path: "payment-success",

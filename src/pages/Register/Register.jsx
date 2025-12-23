@@ -19,23 +19,18 @@ const Register = () => {
 
   // -------HANDLE REGISTER WITH EP--------
   const handleRegister = (data) => {
-    const name = data.name;
-    const email = data.email;
-    const password = data.password;
-    const role = data.role;
-    const phone = data.phone;
-    const photoURL = data.photoURL;
+    const { name, email, password, role, phone, photoURL } = data;
+    console.log("click");
 
     registerUser(email, password).then((res) => {
-      console.log(res.user.uid);
       navigate("/");
       updaUserInfo(name, photoURL).then(() => {
         const newUser = {
-          name: name,
-          email: email,
-          role: role,
-          phone: phone,
-          photoURL: photoURL,
+          name,
+          email,
+          role,
+          phone,
+          photoURL,
           uid: res.user.uid,
         };
 
@@ -56,7 +51,6 @@ const Register = () => {
   const handleGoogleLogin = () => {
     loginWithGoogle()
       .then((res) => {
-        console.log(res.user.uid, "form register");
         const newUser = {
           name: res.user?.displayName,
           email: res.user?.email,
@@ -65,21 +59,14 @@ const Register = () => {
           photoURL: res.user?.photoURL,
           uid: res.user.uid,
         };
-        axiosSecure
-          .post("/users", newUser)
-          .then((res) => {
-            if (res.data.insertedId) {
-              alert("User Saved to MongoDB");
-            } else {
-              console.log(res.data);
-            }
-          })
-          .catch((err) => {
-            alert(err.code);
+        axiosSecure.post("/users", newUser).then(() => {
+          navigate("/");
+          Swal.fire({
+            title: `Welcome ${newUser?.name}`,
+            icon: "success",
+            confirmButtonColor: "#188bfe",
           });
-
-        navigate("/");
-        console.log("Login Successful");
+        });
       })
       .catch((err) => {
         console.log(err.code);
@@ -87,140 +74,171 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
-      <div className="p-10 bg-base-100 rounded-xl w-sm shadow-xl">
-        {/* -----REGISTER FORM-------- */}
-        <form onSubmit={handleSubmit(handleRegister)} className=" ">
-          <h2 className="text-xl md:text-2xl font-semibold text-center">
-            Register
-          </h2>
+    <div className="flex justify-center items-center min-h-[calc(100vh-100px)] px-4 bg-gray-50 py-10">
+      <div className="w-full max-w-lg bg-base-100 rounded-2xl shadow-lg p-8 md:p-10">
+        {/* ----- REGISTER FORM ----- */}
+        <form onSubmit={handleSubmit(handleRegister)}>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Create Account
+            </h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Join us to manage and find the best tuitions
+            </p>
+          </div>
 
-          <fieldset className="fieldset">
-            {/* name */}
-            <label className="label">Name</label>
-            <input
-              type="text"
-              className="input w-full"
-              placeholder="Name"
-              {...register("name")}
-            />
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Name */}
+              <div>
+                <label className="label text-sm font-medium">Name</label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  placeholder="Your Name"
+                  {...register("name", { required: true })}
+                />
+                {errors.name && (
+                  <p className="text-error text-xs mt-1">Name is required</p>
+                )}
+              </div>
 
-            {/* email */}
-            <label className="label">Email</label>
-            <input
-              type="email"
-              className="input w-full"
-              placeholder="Email"
-              {...register("email")}
-            />
-
-            {/* role */}
-            <label className="label">Role</label>
-            <select
-              className="select"
-              {...register("role", { required: true })}
-            >
-              <option value="">Select a Role</option>
-              <option value="student">Student</option>
-              <option value="tutor">Tutor</option>
-            </select>
-            {errors.role?.type === "required" && (
-              <p className="text-error">Plaease select a role</p>
-            )}
-
-            {/* phone */}
-            <label className="label">Phone</label>
-            <input
-              type="text"
-              className="input w-full"
-              placeholder="Phone"
-              {...register("phone")}
-            />
-
-            {/* photoURL */}
-            <label className="label">Photo URL</label>
-            <input
-              type="text"
-              className="input w-full"
-              placeholder="Photo Url"
-              {...register("photoURL")}
-            />
-
-            {/* password */}
-            <label className="label">Password</label>
-            <input
-              type="password"
-              className="input w-full"
-              placeholder="Password"
-              {...register("password", { minLength: 6, required: true })}
-            />
-            {errors.password?.type === "minLength" && (
-              <p className="text-error">
-                Password can't be less than 6 characters.
-              </p>
-            )}
-            {errors.password?.type === "required" && (
-              <p className="text-error">Password is required.</p>
-            )}
-
-            <div>
-              <a className="link link-hover">Forgot password?</a>
+              {/* Email */}
+              <div>
+                <label className="label text-sm font-medium">Email</label>
+                <input
+                  type="email"
+                  className="input input-bordered w-full"
+                  placeholder="Email Address"
+                  {...register("email", { required: true })}
+                />
+                {errors.email && (
+                  <p className="text-error text-xs mt-1">Email is required</p>
+                )}
+              </div>
             </div>
-            <Button className="btn-primary">
-              {loadingUser ? (
-                <span className="loading loading-infinity loading-xl"></span>
-              ) : (
-                <span>Register</span>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Role */}
+              <div>
+                <label className="label text-sm font-medium">I am a</label>
+                <select
+                  className="select select-bordered w-full font-normal"
+                  {...register("role", { required: true })}
+                >
+                  <option value="">Select Role</option>
+                  <option value="student">Student</option>
+                  <option value="tutor">Tutor</option>
+                </select>
+                {errors.role && (
+                  <p className="text-error text-xs mt-1">
+                    Please select a role
+                  </p>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="label text-sm font-medium">Phone</label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  placeholder="Phone Number"
+                  {...register("phone", { required: true })}
+                />
+                {errors.phone && (
+                  <p className="text-error text-xs mt-1">Phone is required</p>
+                )}
+              </div>
+            </div>
+
+            {/* Photo URL */}
+            <div>
+              <label className="label text-sm font-medium">Photo URL</label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                placeholder="https://example.com/photo.jpg"
+                {...register("photoURL")}
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="label text-sm font-medium">Password</label>
+              <input
+                type="password"
+                className="input input-bordered w-full"
+                placeholder="At least 6 characters"
+                {...register("password", { minLength: 6, required: true })}
+              />
+              {errors.password?.type === "minLength" && (
+                <p className="text-error text-xs mt-1">
+                  Password must be 6+ characters
+                </p>
               )}
-            </Button>
-          </fieldset>
+              {errors.password?.type === "required" && (
+                <p className="text-error text-xs mt-1">Password is required</p>
+              )}
+            </div>
+
+            {/* Register Button */}
+            <button className="w-full">
+              <Button className="btn-primary w-full h-11 mt-4">
+                {loadingUser ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                  "Register"
+                )}
+              </Button>
+            </button>
+          </div>
         </form>
 
-        {/* -------DIVIDER------ */}
-        <div className="flex w-full flex-col">
-          <div className="divider">OR</div>
+        {/* Divider */}
+        <div className="my-8">
+          <div className="divider text-xs text-gray-400">OR</div>
         </div>
 
-        {/* -------Google------ */}
+        {/* Google Login */}
         <div onClick={handleGoogleLogin}>
-          <Button className=" bg-[#5289ff27] w-full">
-            <span>
+          <Button className="w-full h-11 bg-[#5289ff27] text-[#188bfe] hover:bg-[#188bfe15] transition">
+            <span className="flex items-center justify-center gap-3">
               <svg
                 aria-label="Google logo"
                 width="16"
                 height="16"
-                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
-                <g>
-                  <path d="m0 0H512V512H0" fill="#fff"></path>
-                  <path
-                    fill="#34a853"
-                    d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                  ></path>
-                  <path
-                    fill="#4285f4"
-                    d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                  ></path>
-                  <path
-                    fill="#fbbc02"
-                    d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                  ></path>
-                  <path
-                    fill="#ea4335"
-                    d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                  ></path>
-                </g>
+                <path
+                  fill="#34a853"
+                  d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                />
+                <path
+                  fill="#4285f4"
+                  d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                />
+                <path
+                  fill="#fbbc02"
+                  d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                />
+                <path
+                  fill="#ea4335"
+                  d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                />
               </svg>
+              <span className="font-medium">Continue with Google</span>
             </span>
-            Login With Google
           </Button>
         </div>
 
-        <div className="text-sm mt-4 text-center">
+        <div className="text-sm mt-6 text-center text-gray-500">
           Already have an account?{" "}
-          <Link to="/login">
-            <span className="text-primary hover:text-blue-700">Login</span>
+          <Link
+            to="/login"
+            className="text-[#188bfe] font-medium hover:underline"
+          >
+            Login
           </Link>
         </div>
       </div>

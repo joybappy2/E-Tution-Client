@@ -106,7 +106,7 @@ const StudentDashboard = () => {
             </NavLink>
 
             {/* Profile Settings */}
-            <NavLink to="/dashboard/student/settings">
+            <NavLink to="/dashboard/student/profile-settings">
               {({ isActive }) => (
                 <Button
                   className={`w-full justify-start gap-2 ${
@@ -114,7 +114,7 @@ const StudentDashboard = () => {
                   }`}
                 >
                   <MdSettings size={18} />
-                  Profile Settings
+                  Profile
                 </Button>
               )}
             </NavLink>

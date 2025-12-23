@@ -32,7 +32,6 @@ const TutionDetails = () => {
   //   return amiAchi || false
   // };
 
-
   const handleClickApply = () => {
     applyModalRef.current.showModal();
   };
@@ -92,7 +91,7 @@ const TutionDetails = () => {
         {/* Card */}
         {isLoading ? (
           <div className="flex justify-center min-h-50 items-center">
-            <span className="loading loading-infinity text-primary loading-xl"></span>
+            <span className="loading loading-spinner text-primary loading-xl"></span>
           </div>
         ) : (
           <div className="bg-secondary rounded-2xl shadow-md p-4 sm:p-6 space-y-6">
@@ -142,11 +141,7 @@ const TutionDetails = () => {
             {/* Actions */}
             {role === "tutor" && (
               <div className="flex flex-wrap gap-3 justify-end">
-                <button
-                 
-                  onClick={handleClickApply}
-                  className="btn btn-primary"
-                >
+                <button onClick={handleClickApply} className="btn btn-primary">
                   Apply
                 </button>
               </div>

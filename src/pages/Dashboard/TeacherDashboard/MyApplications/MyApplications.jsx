@@ -103,7 +103,7 @@ const MyApplications = () => {
       <div className="bg-secondary rounded-2xl shadow-md p-4 sm:p-6 space-y-4">
         {isLoading ? (
           <div className="flex justify-center min-h-50 items-center">
-            <span className="loading loading-infinity text-primary loading-xl"></span>
+            <span className="loading loading-spinner text-primary loading-xl"></span>
           </div>
         ) : (
           applications.map((application) => (

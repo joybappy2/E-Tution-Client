@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import { format } from "date-fns";
 
 const MyTutions = () => {
   const axiosSecure = useAxiosSecure();
@@ -27,13 +28,22 @@ const MyTutions = () => {
     },
   });
 
+  // ------ loading on going tution --------
+  const { data: onGoingTutions = [], isLoading: onGoingLoading } = useQuery({
+    queryKey: ["onGoing"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/tutions/on-going/${user?.email}`);
+      return res.data;
+    },
+  });
+
+  console.log("ongoing", onGoingTutions);
+
   // ----- Open modal & set clicked tution in state --------
   const handleEditTution = (clickedTution) => {
     setTutionInfo(clickedTution);
 
-    // reset here
     reset();
-
     modalRef.current.showModal();
   };
 
@@ -59,7 +69,6 @@ const MyTutions = () => {
   // ----- Delete Tution Post --------
   const handleDeleteTution = (deleteId) => {
     // console.log(deleteId);
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -102,7 +111,7 @@ const MyTutions = () => {
         <div className="bg-secondary rounded-2xl shadow-md p-4 sm:p-6 space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {isLoading ? (
             <div className="flex justify-center min-h-50 items-center">
-              <span className="loading loading-infinity text-primary loading-xl"></span>
+              <span className="loading loading-spinner text-primary loading-xl"></span>
             </div>
           ) : (
             myTutions.map((tution) => (
@@ -259,6 +268,59 @@ const MyTutions = () => {
               </div>
             </div>
           </dialog>
+        </div>
+
+        {/* Header 2 */}
+        <div className="text-center mb-6 mt-6">
+          <h2 className="text-2xl md:text-3xl font-bold">On Gong Tutions</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Manage all the on going tutions
+          </p>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead className="bg-secondary ">
+              <tr>
+                <th>Subject</th>
+                <th>Tutor Name</th>
+                <th>Tutor Experience</th>
+                <th>Tution Budget</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr>
+                  <td>
+                    <div className="flex justify-center min-h-50 items-center">
+                      <span className="loading loading-spinner text-primary loading-xl"></span>
+                    </div>
+                  </td>
+                </tr>
+              ) : onGoingLoading ? (
+                <span className="loading loading-spinner text-primary loading-xl"></span>
+              ) : (
+                onGoingTutions.map((t) => (
+                  <tr key={t?._id} className="hover:bg-base-200">
+                    {/* Profile Picture & Name */}
+                    <td>{t?.tuitonPostSubject}</td>
+
+                    {/* Qualifications */}
+                    <td>
+                      <div className="text-sm opacity-90">{t?.tutorName}</div>
+                    </td>
+
+                    {/* Experience */}
+                    <td>{t?.experience} Years</td>
+
+                    {/* Expected Salary */}
+                    <td className="font-semibold">{t?.expectedSalary} BDT</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

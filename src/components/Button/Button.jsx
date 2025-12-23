@@ -1,6 +1,6 @@
 const Button = ({ children, className = "", ...props }) => {
   return (
-    <button
+    <div
       {...props}
       className={`
           btn
@@ -12,7 +12,7 @@ const Button = ({ children, className = "", ...props }) => {
         `}
     >
       {children}
-    </button>
+    </div>
   );
 };
 

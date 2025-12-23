@@ -91,7 +91,7 @@ const TeacherDashboard = () => {
             </NavLink>
 
             {/* Profile Settings */}
-            <NavLink to="/dashboard/tutor/settings">
+            <NavLink to="/dashboard/tutor/profile-settings">
               {({ isActive }) => (
                 <Button
                   className={`w-full justify-start gap-2 ${

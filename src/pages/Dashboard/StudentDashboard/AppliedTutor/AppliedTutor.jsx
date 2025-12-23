@@ -8,7 +8,11 @@ const AppliedTutor = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: applications = [], isLoading, refetch } = useQuery({
+  const {
+    data: applications = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["applications"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -40,12 +44,12 @@ const AppliedTutor = () => {
     const res = await axiosSecure.patch(
       `/reject/application/${application._id}`
     );
-    if (res.data.modifiedCount) { 
-      refetch()
+    if (res.data.modifiedCount) {
+      refetch();
       Swal.fire({
         title: "Rejected!",
         icon: "success",
-        draggable: false
+        draggable: false,
       });
     }
   };
@@ -83,7 +87,7 @@ const AppliedTutor = () => {
               <tr>
                 <td>
                   <div className="flex justify-center min-h-50 items-center">
-                    <span className="loading loading-infinity text-primary loading-xl"></span>
+                    <span className="loading loading-spinner text-primary loading-xl"></span>
                   </div>
                 </td>
               </tr>
@@ -147,22 +151,25 @@ const AppliedTutor = () => {
                   </td>
 
                   {/* Actions */}
-                  <th>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleRejectApplication(application)}
-                        className="btn text-white btn-error"
-                      >
-                        Reject
-                      </button>
-                      <button
-                        onClick={() => handleAcceptTution(application)}
-                        className="btn btn-primary text-white"
-                      >
-                        Accept
-                      </button>
-                    </div>
-                  </th>
+                  {application?.applicationStatus !== "approved" &&
+                    application?.applicationStatus !== "rejected" && (
+                      <th>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleRejectApplication(application)}
+                            className="btn text-white btn-error"
+                          >
+                            Reject
+                          </button>
+                          <button
+                            onClick={() => handleAcceptTution(application)}
+                            className="btn btn-primary text-white"
+                          >
+                            Accept
+                          </button>
+                        </div>
+                      </th>
+                    )}
                 </tr>
               ))
             )}

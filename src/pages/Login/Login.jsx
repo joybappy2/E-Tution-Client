@@ -3,7 +3,7 @@ import Button from "../../components/Button/Button";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Login = () => {
   const { loginWithGoogle, loginUser } = useAuth();
@@ -60,6 +60,10 @@ const Login = () => {
                 placeholder="Enter your email"
                 {...register("email", { required: true })}
               />
+
+              {errors.email?.type === "required" && (
+                <p className="text-error text-xs mt-1">Email is required.</p>
+              )}
             </div>
 
             {/* Password */}
@@ -89,7 +93,9 @@ const Login = () => {
             </div>
 
             {/* Login Button */}
-            <Button className="btn-primary w-full h-11">Login</Button>
+            <button className="w-full">
+              <Button className="btn-primary w-full h-11">Login</Button>
+            </button>
           </div>
         </form>
 
@@ -128,6 +134,16 @@ const Login = () => {
               <span className="font-medium">Continue with Google</span>
             </span>
           </Button>
+        </div>
+
+        <div className="text-sm mt-6 text-center text-gray-500">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="text-[#188bfe] font-medium hover:underline"
+          >
+            Register
+          </Link>
         </div>
       </div>
     </div>

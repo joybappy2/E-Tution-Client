@@ -49,7 +49,7 @@ const TutionManagement = () => {
         <div className="bg-secondary rounded-2xl shadow-md p-4 sm:p-6 space-y-4">
           {isLoading ? (
             <div className="flex justify-center min-h-50 items-center">
-              <span className="loading loading-infinity text-primary loading-xl"></span>
+              <span className="loading loading-spinner text-primary loading-xl"></span>
             </div>
           ) : (
             AllTuitions.map((tution) => (
@@ -83,10 +83,14 @@ const TutionManagement = () => {
                     <p className="text-xs text-gray-500">Status</p>
                     <span
                       className={`badge badge-soft ${
-                        tution?.status === "approved"
-                          ? "badge-success"
-                          : "badge-warning"
-                      }`}
+                        tution?.status === "approved" && "badge-success"
+                      }
+                      
+                      ${tution?.status === "assigned" && "badge-primary"}
+
+                      ${tution?.status === "rejected" && "badge-error"}
+                      ${tution?.status === "pending" && "badge-warning"}
+                      `}
                     >
                       {tution.status}
                     </span>
@@ -96,7 +100,10 @@ const TutionManagement = () => {
                 {/* Actions */}
                 <div className="flex flex-wrap gap-2 mt-4">
                   <button
-                    disabled={tution?.status === "approved"}
+                    disabled={
+                      tution?.status === "approved" ||
+                      tution?.status === "assigned"
+                    }
                     onClick={() => handleTutionStatus("approved", tution?._id)}
                     className="btn btn-sm btn-primary"
                   >
@@ -104,7 +111,11 @@ const TutionManagement = () => {
                   </button>
 
                   <button
-                    disabled={tution?.status === "rejected"}
+                    disabled={
+                      tution?.status === "rejected" ||
+                      tution?.status === "approved" ||
+                      tution?.status === "assigned"
+                    }
                     onClick={() => handleTutionStatus("rejected", tution?._id)}
                     className="btn btn-sm btn-error text-white"
                   >

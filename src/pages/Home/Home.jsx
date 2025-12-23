@@ -92,7 +92,7 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
             <div className="col-span-full flex justify-center py-12">
-              <span className="loading loading-infinity text-[#188bfe] loading-lg"></span>
+              <span className="loading loading-spinner text-primary loading-lg"></span>
             </div>
           ) : (
             tutions.slice(0, 6).map((tution) => (
@@ -140,7 +140,7 @@ const Home = () => {
             <h2 className="text-2xl font-semibold text-gray-900">
               Latest Tutors
             </h2>
-            <div className="h-1 w-12 bg-[#188bfe] mt-2 rounded-full"></div>
+            <div className="h-1 w-12 bg-primary mt-2 rounded-full"></div>
           </div>
           <Link
             to="/tutors"
@@ -153,8 +153,8 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tutorsLoading ? (
             <div className="col-span-full flex justify-center py-12">
-              <span className="loading loading-spinner text-[#188bfe]"></span>
-            </div>
+            <span className="loading loading-spinner text-primary loading-lg"></span>
+          </div>
           ) : (
             tutors.slice(0, 6).map((tutor) => (
               <div
@@ -232,9 +232,9 @@ const Home = () => {
             <div className="w-12 h-12 rounded-full bg-[#188bfe10] text-[#188bfe] flex items-center justify-center text-xl font-bold mb-4">
               3
             </div>
-            <h3 className="font-semibold text-gray-900">Admin Reviews</h3>
+            <h3 className="font-semibold text-gray-900">Pay Amount</h3>
             <p className="text-sm text-gray-500 mt-2 leading-relaxed">
-              Our admin team reviews applications to ensure the best connection.
+              Pay the expected amount of tutors online. Super fast and easy.
             </p>
           </div>
 

@@ -117,15 +117,13 @@ const Navbar = () => {
               </li>
 
               <li>
-                <a>
-                  Profile <span className="text-gray-500">({role})</span>
-                </a>
-              </li>
-              <li>
                 <NavLink to={`/dashboard/${role && role}`}>Dashboard</NavLink>
               </li>
+
               <li>
-                <a>Settings</a>
+                <NavLink to={`/dashboard/${role}/profile-settings`}>
+                  Profile<span>({role})</span>
+                </NavLink>
               </li>
 
               {/* -----REGISTER FORM-------- */}
@@ -137,7 +135,7 @@ const Navbar = () => {
         ) : (
           <div>
             {loadingUser ? (
-              <span className="loading loading-infinity text-primary loading-xl"></span>
+              <span className="loading loading-spinner text-primary loading-xl"></span>
             ) : (
               <div className="flex items-center gap-2 sm:gap-4">
                 <Link to="/login">
