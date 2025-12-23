@@ -31,12 +31,12 @@ const MyTutions = () => {
   const { data: onGoingTutions = [], isLoading: onGoingLoading } = useQuery({
     queryKey: ["onGoing"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/tutions/on-going/${user?.email}/student`);
+      const res = await axiosSecure.get(
+        `/tutions/on-going/${user?.email}/student`
+      );
       return res.data;
     },
   });
-
-  console.log("ongoing", onGoingTutions);
 
   // ----- Open modal & set clicked tution in state --------
   const handleEditTution = (clickedTution) => {
@@ -67,7 +67,6 @@ const MyTutions = () => {
 
   // ----- Delete Tution Post --------
   const handleDeleteTution = (deleteId) => {
-    // console.log(deleteId);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -79,8 +78,6 @@ const MyTutions = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`delete/${deleteId}`).then((res) => {
-          console.log(res.data);
-
           if (res.data.deletedCount) {
             refetch();
             Swal.fire({

@@ -74,8 +74,6 @@ const UserManagement = () => {
 
   //  ------- handle change user role -------
   const handleMakeRole = (roleToSet) => {
-    console.log(roleToSet);
-    console.log(currentUserRole);
     axiosSecure
       .patch(`/user/${currentUserRole._id}/role?role=${roleToSet}`)
       .then((res) => {
@@ -94,7 +92,6 @@ const UserManagement = () => {
 
   //  ------- handle delete user profile -------
   const handleDeleteUser = (uid) => {
-    console.log(uid);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

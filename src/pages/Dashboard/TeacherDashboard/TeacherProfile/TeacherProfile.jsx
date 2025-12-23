@@ -11,7 +11,6 @@ const TeacherProfile = () => {
   const { user, updaUserInfo } = useAuth();
   const role = useRole();
   const vStatus = useVstatus();
-  console.log(vStatus);
 
   const {
     register,

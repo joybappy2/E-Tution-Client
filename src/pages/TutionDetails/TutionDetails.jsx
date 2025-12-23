@@ -24,8 +24,6 @@ const TutionDetails = () => {
     },
   });
 
-  console.log(tuiton);
-
   // const isApplied = () => {
   //   const emails =  tuiton?.appliedEmails
   //   const amiAchi = emails?.includes(user?.email)
@@ -56,7 +54,6 @@ const TutionDetails = () => {
     axiosSecure
       .post("/tution/applications", newApplication)
       .then((res) => {
-        console.log(res.data);
         if (res.data?.insertedId) {
           applyModalRef.current.close();
           Swal.fire({

@@ -10,12 +10,8 @@ const DashboardLayout = () => {
   // ------HANDLE LOGOUT--------
   const handleLogout = () => {
     logout()
-      .then(() => {
-        console.log("Logout Successful");
-      })
-      .catch((err) => {
-        console.log(err.code);
-      });
+      .then(() => {})
+      .catch(() => {});
   };
 
   return (

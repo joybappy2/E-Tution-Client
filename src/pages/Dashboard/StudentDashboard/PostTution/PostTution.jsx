@@ -16,7 +16,6 @@ const PostTution = () => {
 
   //----- Handle Post Tution ------
   const handPostTution = (data) => {
-    console.table(data);
     const newPost = {
       subject: data.subject,
       class: data.class,

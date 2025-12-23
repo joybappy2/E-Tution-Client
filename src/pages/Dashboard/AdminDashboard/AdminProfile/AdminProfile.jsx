@@ -42,7 +42,7 @@ const AdminProfile = () => {
       </div>
 
       {/* Main Card */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 rounded-xl bg-secondary md:p-8 p-3">
         {/* Profile Summary */}
         <div
           className="md:col-span-4 bg-base-100 rounded-xl shadow-sm p-6 text-center

@@ -29,6 +29,9 @@ import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/S
 import AdminProfile from "../pages/Dashboard/AdminDashboard/AdminProfile/AdminProfile";
 import TeacherProfile from "../pages/Dashboard/TeacherDashboard/TeacherProfile/TeacherProfile";
 import OnGoingTution from "../pages/Dashboard/TeacherDashboard/OnGoingTution/OnGoingTution";
+import Error from "../pages/Error/Error";
+import TutorProfile from "../pages/TutorProfile/TutorProfile";
+import About from "../pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,14 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "tutor-details/:id",
+        Component: TutorProfile,
+      },
+      {
+        path: "/about",
+        Component: About,
       },
       {
         path: "tutions",
@@ -202,13 +213,7 @@ const router = createBrowserRouter([
 
   {
     path: "*",
-    element: (
-      <h2 className="text-7xl text-center font-bold min-h-screen flex justify-center items-center">
-        Error 404
-        <br />
-        Page Not Found
-      </h2>
-    ),
+    element: <Error></Error>,
   },
 ]);
 

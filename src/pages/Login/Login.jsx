@@ -16,7 +16,6 @@ const Login = () => {
   } = useForm();
 
   const handleLogin = async (data) => {
-    console.log(data);
     const res = await loginUser(data?.email, data?.password);
     navigate("/");
     Swal.fire({

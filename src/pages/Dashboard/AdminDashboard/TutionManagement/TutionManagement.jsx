@@ -16,10 +16,8 @@ const TutionManagement = () => {
       return res.data;
     },
   });
-  console.log(AllTuitions);
 
   const handleTutionStatus = (status, tutionId) => {
-    console.log(status, tutionId);
     axiosSecure
       .patch(`/tution/update/${tutionId}?status=${status}`)
       .then((res) => {

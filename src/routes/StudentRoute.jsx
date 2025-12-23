@@ -3,7 +3,6 @@ import useRole from "../hooks/useRole";
 
 const StudentRoute = ({ children }) => {
   const role = useRole();
-  console.log(role);
 
   if (!role) {
     return null;

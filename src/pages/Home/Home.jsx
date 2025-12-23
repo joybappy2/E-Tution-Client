@@ -182,7 +182,7 @@ const Home = () => {
                 </p>
 
                 <Link
-                  to={`/tutor/${tutor?._id}`}
+                  to={`/tutor-details/${tutor?._id}`}
                   className="mt-6 text-[#188bfe] text-sm font-semibold py-2 px-6 border border-[#188bfe] rounded-lg hover:bg-[#188bfe] hover:text-white transition-all"
                 >
                   View Profile

@@ -17,8 +17,6 @@ const AllTutors = () => {
     },
   });
 
-  console.log(tutors);
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 space-y-10 bg-gray-50 min-h-screen font-inter">
       {/* ------ Page Header (Matched AllTutions) ------ */}
@@ -133,7 +131,7 @@ const AllTutors = () => {
 
               {/* Action Button */}
               <Link
-                to={`/tutor/${tutor?._id}`}
+                to={`/tutor-details/${tutor?._id}`}
                 className="mt-6 text-[#188bfe] text-sm font-semibold py-2 px-8 border border-[#188bfe] rounded-lg hover:bg-[#188bfe] hover:text-white transition-all w-full md:w-auto"
               >
                 View Profile

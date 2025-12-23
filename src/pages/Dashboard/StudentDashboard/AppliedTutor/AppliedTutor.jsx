@@ -22,8 +22,6 @@ const AppliedTutor = () => {
     },
   });
 
-  console.log(applications);
-
   const handleAcceptTution = (application) => {
     const paymentInfo = {
       expectedSalary: application?.expectedSalary,
@@ -40,7 +38,6 @@ const AppliedTutor = () => {
   };
 
   const handleRejectApplication = async (application) => {
-    console.log(application);
     const res = await axiosSecure.patch(
       `/reject/application/${application._id}`
     );
@@ -53,8 +50,6 @@ const AppliedTutor = () => {
       });
     }
   };
-
-  console.log(applications);
 
   return (
     <div className="min-h-screen py-10 px-3 sm:px-6">

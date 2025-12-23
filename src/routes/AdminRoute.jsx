@@ -2,7 +2,6 @@ import useRole from "../hooks/useRole";
 
 const AdminRoute = ({ children }) => {
   const role = useRole();
-  console.log(role);
 
   if (!role) {
     return null;

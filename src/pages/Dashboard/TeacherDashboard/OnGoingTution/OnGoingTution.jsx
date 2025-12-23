@@ -18,8 +18,6 @@ const OnGoingTution = () => {
     },
   });
 
-  console.log(onGoingTutions);
-
   return (
     <div className="min-h-screen px-4 sm:px-6 py-8">
       {/* Page Header */}
@@ -52,7 +50,7 @@ const OnGoingTution = () => {
                     {tuition.tuitonPostSubject}
                   </p>
                 </div>
-  
+
                 {/* Student Info */}
                 <div className="md:col-span-3">
                   <p className="text-xs text-gray-500">Student</p>
@@ -60,7 +58,7 @@ const OnGoingTution = () => {
                     {tuition.studentEmail}
                   </p>
                 </div>
-  
+
                 {/* Salary */}
                 <div className="md:col-span-2">
                   <p className="text-xs text-gray-500">Monthly Salary</p>
@@ -68,14 +66,14 @@ const OnGoingTution = () => {
                     {tuition.expectedSalary} BDT
                   </p>
                 </div>
-  
+
                 {/* Status */}
                 <div className="md:col-span-2">
                   <span className="badge badge-success badge-soft">
                     Approved
                   </span>
                 </div>
-  
+
                 {/* Started Time */}
                 <div className="md:col-span-1 text-right">
                   <p className="text-xs text-gray-400">
@@ -101,17 +99,3 @@ const OnGoingTution = () => {
 };
 
 export default OnGoingTution;
-
-
-
-
-
-
-
-
-
-
-
-
-
-

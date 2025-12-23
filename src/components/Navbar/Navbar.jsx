@@ -8,7 +8,6 @@ import useRole from "../../hooks/useRole";
 const Navbar = () => {
   const { user, loadingUser, logout } = useAuth();
   const role = useRole();
-  // console.log(user);
 
   const links = (
     <>
@@ -30,12 +29,8 @@ const Navbar = () => {
   // ------HANDLE LOGOUT--------
   const handleLogout = () => {
     logout()
-      .then(() => {
-        console.log("Logout Successful");
-      })
-      .catch((err) => {
-        console.log(err.code);
-      });
+      .then(() => {})
+      .catch(() => {});
   };
 
   return (

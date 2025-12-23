@@ -20,7 +20,6 @@ const Register = () => {
   // -------HANDLE REGISTER WITH EP--------
   const handleRegister = (data) => {
     const { name, email, password, role, phone, photoURL } = data;
-    console.log("click");
 
     registerUser(email, password).then((res) => {
       navigate("/");
@@ -68,9 +67,7 @@ const Register = () => {
           });
         });
       })
-      .catch((err) => {
-        console.log(err.code);
-      });
+      .catch(() => {});
   };
 
   return (
