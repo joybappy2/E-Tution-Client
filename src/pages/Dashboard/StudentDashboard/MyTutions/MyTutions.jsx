@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
-import { format } from "date-fns";
 
 const MyTutions = () => {
   const axiosSecure = useAxiosSecure();
@@ -32,7 +31,7 @@ const MyTutions = () => {
   const { data: onGoingTutions = [], isLoading: onGoingLoading } = useQuery({
     queryKey: ["onGoing"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/tutions/on-going/${user?.email}`);
+      const res = await axiosSecure.get(`/tutions/on-going/${user?.email}/student`);
       return res.data;
     },
   });
@@ -290,16 +289,14 @@ const MyTutions = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading ? (
-                <tr>
-                  <td>
-                    <div className="flex justify-center min-h-50 items-center">
+              {onGoingLoading ? (
+                <tr className="w-full">
+                  <td className="">
+                    <div className="flex justify-center min-h-50 items-center w-full">
                       <span className="loading loading-spinner text-primary loading-xl"></span>
                     </div>
                   </td>
                 </tr>
-              ) : onGoingLoading ? (
-                <span className="loading loading-spinner text-primary loading-xl"></span>
               ) : (
                 onGoingTutions.map((t) => (
                   <tr key={t?._id} className="hover:bg-base-200">

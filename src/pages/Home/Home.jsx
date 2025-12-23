@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <div className="bg-gray-50 font-inter min-h-screen">
       {/* ------ Hero Section ------ */}
-      <section className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center py-16 md:py-24">
+      <section className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center md:pb-24 md:pt-16">
         <div className="text-center md:text-left">
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
             Manage Tuition <br />
@@ -52,11 +52,11 @@ const Home = () => {
 
           <div className="mt-8 flex flex-col md:flex-row gap-4 justify-center md:justify-start">
             <Link to="/register">
-              <Button className="btn-primary px-8 h-12">Get Started</Button>
+              <Button className="btn-primary px-8 w-full">Get Started</Button>
             </Link>
 
             <Link to="/about">
-              <Button className="bg-[#5289ff27] text-[#188bfe] border-none px-8 h-12 hover:bg-[#188bfe15] transition-colors">
+              <Button className="bg-[#5289ff27] text-[#188bfe] border-none px-8 hover:bg-[#188bfe15] transition-colors w-full">
                 Learn More
               </Button>
             </Link>
@@ -153,13 +153,13 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tutorsLoading ? (
             <div className="col-span-full flex justify-center py-12">
-            <span className="loading loading-spinner text-primary loading-lg"></span>
-          </div>
+              <span className="loading loading-spinner text-primary loading-lg"></span>
+            </div>
           ) : (
             tutors.slice(0, 6).map((tutor) => (
               <div
                 key={tutor._id || tutor.email} // Use a unique ID string here
-                className="card bg-base-100 shadow-sm hover:shadow-md transition hover:scale-[1.02] items-center text-center p-8"
+                className="card bg-base-100 shadow-sm hover:shadow-md transition hover:scale-[1.02] items-center text-center p-8 py-10"
               >
                 <div className="relative">
                   <img

@@ -4,10 +4,15 @@ import useAuth from "../../../../hooks/useAuth";
 import useRole from "../../../../hooks/useRole";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { FaCheckCircle } from "react-icons/fa";
+import useVstatus from "../../../../hooks/useVstatus";
 
 const TeacherProfile = () => {
   const { user, updaUserInfo } = useAuth();
   const role = useRole();
+  const vStatus = useVstatus();
+  console.log(vStatus);
+
   const {
     register,
     handleSubmit,
@@ -55,8 +60,13 @@ const TeacherProfile = () => {
             className="w-24 h-24 rounded-full object-cover mx-auto border-2 border-primary p-1"
           />
 
-          <h3 className="mt-4 text-lg font-semibold text-gray-900">
-            {user?.displayName.split(" ")[0]}
+          <h3 className="mt-4 text-lg font-semibold text-gray-900 flex items-center justify-center gap-1">
+            <span>{user?.displayName.split(" ")[0]}</span>
+            {vStatus === "verified" && (
+              <span>
+                <FaCheckCircle color="#188bfe"></FaCheckCircle>
+              </span>
+            )}
           </h3>
 
           <p className="text-sm text-gray-500">{user?.email}</p>

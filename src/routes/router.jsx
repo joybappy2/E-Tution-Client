@@ -28,6 +28,7 @@ import PaymentHistory from "../pages/Dashboard/StudentDashboard/PaymentHistory/P
 import StudentProfile from "../pages/Dashboard/StudentDashboard/StudentProfile/StudentProfile";
 import AdminProfile from "../pages/Dashboard/AdminDashboard/AdminProfile/AdminProfile";
 import TeacherProfile from "../pages/Dashboard/TeacherDashboard/TeacherProfile/TeacherProfile";
+import OnGoingTution from "../pages/Dashboard/TeacherDashboard/OnGoingTution/OnGoingTution";
 
 const router = createBrowserRouter([
   {
@@ -134,16 +135,16 @@ const router = createBrowserRouter([
           },
           {
             path: "on-going-tutions",
-            element: <p>On going Tutions</p>,
+            element: <OnGoingTution></OnGoingTution>,
           },
           {
             path: "revenue-history",
             element: <RevenueHistory></RevenueHistory>,
           },
           {
-            path: 'profile-settings',
-            element: <TeacherProfile></TeacherProfile>
-          }
+            path: "profile-settings",
+            element: <TeacherProfile></TeacherProfile>,
+          },
         ],
       },
 
@@ -162,8 +163,6 @@ const router = createBrowserRouter([
                 <span className="text-2xl md:text-3xl font-semibold">
                   Student Dashboard Home{" "}
                 </span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-                voluptas ullam, voluptate commodi, est placeat eveniet possimus
               </p>
             ),
           },
